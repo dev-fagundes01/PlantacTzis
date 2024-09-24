@@ -1,10 +1,13 @@
-import Header from "./components/Header";
+import Title from "./components/Title";
 
 function App() {
   return (
-    <>
-      <Header />
-    </>
+    <div>
+
+      <form action="">
+        <Title>R-Plantas</Title>
+      </form>
+    </div>
   );
 }
 
