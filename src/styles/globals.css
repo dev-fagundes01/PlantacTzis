@@ -5,68 +5,45 @@
 @layer base {
   :root {
     --background: #181f36;
-    --foreground: 222.2 47.4% 11.2%;
+    --foreground: #FFFFFF;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --border: #E3E8F7;
+    --input: #E3E8F7;
+    --card: #FFFFFF;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
+    --primary: #1C0B02;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --secondary: #F2F5F9;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 47.4% 11.2%;
+    --accent: #F2F5F9;
+    --accent-foreground: #1C0B02;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --destructive: #FF0000;
+    --destructive-foreground: #F9FAFC;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 100% 50%;
-    --destructive-foreground: 210 40% 98%;
-
-    --ring: 215 20.2% 65.1%;
+    --ring: #ACB3C9;
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
+    --background: #070707
+    --foreground: #d0d7ff
 
-    --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
+    --border: #2d3142
+    --input: #2d3142
+    --card: #070707
 
-    --accent: 216 34% 17%;
-    --accent-foreground: 210 40% 98%;
+    --primary: #f9fbff    
+    --secondary: #1c1e28
 
-    --popover: 224 71% 4%;
-    --popover-foreground: 215 20.2% 65.1%;
+    --accent: #2d3142
+    --accent-foreground: #f9fbff
 
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
+    --destructive: #9f1a1a
+    --destructive-foreground: #f9fbff
 
-    --card: 224 71% 4%;
-    --card-foreground: 213 31% 91%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 1.2%;
-
-    --secondary: 222.2 47.4% 11.2%;
-    --secondary-foreground: 210 40% 98%;
-
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-
-    --ring: 216 34% 17%;
-
-    --radius: 0.5rem;
+    --ring: #2d3142
   }
 }
 
