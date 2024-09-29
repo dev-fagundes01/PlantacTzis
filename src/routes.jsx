@@ -4,11 +4,11 @@ import PlantShop from './pages/screens/PlantShop'
 
 const router = createBrowserRouter([
   {
-    path: '/registrar-produto',
+    path: '/',
     element: <RegisterProduct />
   },
   {
-    path: '/',
+    path: '/loja',
     element: <PlantShop />,
   },
 ])
