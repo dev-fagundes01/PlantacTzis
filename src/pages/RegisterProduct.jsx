@@ -1,9 +1,9 @@
 import { addDoc, collection, getFirestore } from 'firebase/firestore'
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { app } from '../../config/firebaseConfig'
 import Background from "../components/Background";
 import Title from "../components/Title";
-import { useNavigate } from 'react-router-dom';
 
 function RegisterProduct() {
   const [name, setName] = useState('')
@@ -26,8 +26,10 @@ function RegisterProduct() {
   }
 
   return (
-    <div className='h-screen flex flex-col items-center bg-background'>
-      <Background />
+    <div className='h-screen flex flex-col items-center bg-primaryBackground'>
+      <div className='p-6 flex justify-center items-center'>
+        <Background />
+      </div>
       <form>
         <Title>Cadastre suas Plantas</Title>
 
@@ -43,13 +45,13 @@ function RegisterProduct() {
           <label className='text-white mr-4' htmlFor="Category">Categoria:</label>
           <input className='text-black rounded-lg p-1' placeholder="Plantas com Flores" type="text" name="Category" value={category} onChange={(e) => setCategory(e.target.value)} />
         </div>
-        <button className='w-full text-2xl' type="submit" onClick={createProduct}>Cadastrar</button>
+        <button className='btn-secondary w-48 mx-20' type="submit" onClick={createProduct}>Cadastrar</button>
       </form>
-      {registeredProduct.name ? 
+      {registeredProduct.name ?
         <p>{registeredProduct.name ? `${registeredProduct.name} registrado com sucesso!` : 'Produto não foi registrado'}</p>
         : ''
       }
-      <button className='mt-5 p-1 text-2xl rounded-lg bg-primary' type="button" onClick={() => navigate("/loja")}>Ir para a loja</button>
+      <button className='btn-primary' type="button" onClick={() => navigate("/loja")}>Ir para a loja</button>
     </div>
   );
 }

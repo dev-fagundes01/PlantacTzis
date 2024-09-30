@@ -1,5 +1,5 @@
-import { collection, getDocs, getFirestore } from 'firebase/firestore'
-import { Menu, ShoppingCart, X } from 'lucide-react';
+import { collection, getFirestore, onSnapshot } from 'firebase/firestore'
+import { Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { app } from '../../../config/firebaseConfig'
 
@@ -10,13 +10,15 @@ export default function PlantShop() {
   const db = getFirestore(app)
   const productCollectionRef = collection(db, 'products')
 
-  useEffect(() => {
-    const getProducts = async () => {
-      const data = await getDocs(productCollectionRef)
-      setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-    }
-    getProducts()
-  }, [productCollectionRef])
+  // useEffect(() => {
+  //   const unsubscribe = onSnapshot(productCollectionRef, (snapshot) => {
+  //     setProducts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  //   }, (error) => {
+  //     console.error("Error fetching products:", error);
+  //   });
+
+  //   return () => unsubscribe(); // Clean up the listener on unmount
+  // }, [productCollectionRef]);
 
   return (
     <div className="min-h-screen bg-green-50">
@@ -53,8 +55,8 @@ export default function PlantShop() {
                 <h3 className="text-green-700 text-xl font-semibold mb-2">{product.name}</h3>
                 <p className="text-green-600 font-bold">{product.category}</p>
                 <p className="text-green-600 font-bold">{product.price}</p>
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   className="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300"
                 >
                   Comprar
