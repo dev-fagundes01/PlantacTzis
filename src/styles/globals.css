@@ -4,15 +4,13 @@
 
 @layer base {
   :root {
-    --background: #181f36;
-    --foreground: #FFFFFF;
+    --primary-background: #16A34A;
+    --secondary-background: #FFFFFF;
 
-    --border: #E3E8F7;
-    --input: #E3E8F7;
-    --card: #FFFFFF;
+    --primary-foreground: #181f36;
+    --secondary-foreground: #181f36;
 
     --primary: #1C0B02;
-
     --secondary: #F2F5F9;
 
     --accent: #F2F5F9;
@@ -21,41 +19,49 @@
     --destructive: #FF0000;
     --destructive-foreground: #F9FAFC;
 
-    --ring: #ACB3C9;
-
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: #070707
-    --foreground: #d0d7ff
+    --primary-background: #070707;
+    --secondary-background: #FFFFFF;
 
-    --border: #2d3142
-    --input: #2d3142
-    --card: #070707
+    --primary-foreground: #d0d7ff;
+    --secondary-foreground: #181f36;
 
-    --primary: #f9fbff    
-    --secondary: #1c1e28
+    --primary: #f9fbff; 
+    --secondary: #1c1e28;
 
-    --accent: #2d3142
-    --accent-foreground: #f9fbff
+    --accent: #2d3142;
+    --accent-foreground: #f9fbff;
 
-    --destructive: #9f1a1a
-    --destructive-foreground: #f9fbff
-
-    --ring: #2d3142
+    --destructive: #9f1a1a;
+    --destructive-foreground: #f9fbff;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
     margin:0;
     padding:0;
     box-sizing:border-box;
   }
   body {
-    @apply text-foreground;
+    @apply text-primaryForeground;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply mt-5 p-1 text-2xl rounded-lg bg-secondary
+  }
+
+  .btn-secondary {
+    @apply p-1 text-2xl rounded-lg border border-primaryForeground
+  }
+
+  .btn-primary:hover, .btn-secondary:hover {
+    @apply opacity-50;
   }
 }
