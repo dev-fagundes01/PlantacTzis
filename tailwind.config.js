@@ -13,6 +13,9 @@ export default {
 			width: {
 				36: "36rem",
 			},
+			height: {
+				"42.": "42vh",
+			},
 			colors: {
 				primaryBackground: "var(--primary-background)",
 				secondaryBackground: "var(--secondary-background)",

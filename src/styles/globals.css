@@ -10,8 +10,8 @@
     --primary-foreground: #181f36;
     --secondary-foreground: #181f36;
 
-    --primary: #1C0B02;
-    --secondary: #F2F5F9;
+    --primary: #F2F5F9;
+    --secondary: #166534;
 
     --accent: #F2F5F9;
     --accent-foreground: #1C0B02;
@@ -54,14 +54,22 @@
 
 @layer components {
   .btn-primary {
-    @apply mt-5 p-1 text-2xl rounded-lg bg-secondary
+    @apply p-1 text-2xl rounded-lg bg-primary
   }
 
   .btn-secondary {
-    @apply p-1 text-2xl rounded-lg border border-primaryForeground
+    @apply p-1 text-2xl rounded-lg border border-secondaryForeground
   }
 
   .btn-primary:hover, .btn-secondary:hover {
     @apply opacity-50;
+  }
+
+  .progress-custom::-webkit-progress-bar {
+    @apply bg-gray-200 rounded-lg; /* Fundo da barra */
+  }
+
+  .progress-custom::-webkit-progress-value {
+    @apply bg-blue-500 rounded-lg; /* Cor da barra de progresso */
   }
 }
