@@ -10,6 +10,7 @@ function RegisterProduct() {
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
   const [category, setCategory] = useState('')
+  const [image, setImage] = useState('')
   const [uploading, setUploading] = useState(false)
   const [progress, setProgress] = useState(0)
 
@@ -18,11 +19,16 @@ function RegisterProduct() {
   const productCollectionRef = collection(db, 'products')
   let registeredProduct = {}
 
-  async function createProduct() {
+  async function createProduct(event) {
+    event.preventDefault()
+    const file = event.target[3]?.files[0]
+    handleUpload(file)
+
     const product = await addDoc(productCollectionRef, {
       name,
       price,
-      category
+      category,
+      image
     })
     registeredProduct = product
   }
@@ -33,12 +39,13 @@ function RegisterProduct() {
     return imgName
   }
 
-  const handleUpload = (event) => {
-    event.preventDefault()
-    const file = event.target[3]?.files[0]
-
+  const handleUpload = (file) => {
     if (!file) return
     if (!file.type.includes('image')) return alert('Só é permitido imagens')
+    if (file.size > 1024 * 1024 * 2) {
+      alert(`A imagem não pode ser maior do que 2MB. Imagem selecionada tem: ${(file.size / 1024 / 1024).toFixed(3)} +  MB`)
+      return
+    }
 
     const imgName = createUniqueFileName(file)
     const storageRef = ref(storage, `images/${imgName}`)
@@ -57,16 +64,20 @@ function RegisterProduct() {
         setUploading(false)
       },
       () => {
-        setUploading(false)
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setImage(url)
+          setUploading(false)
+        })
       }
     )
+    console.log(image);
   }
 
   return (
     <div className='h-screen flex flex-col items-center bg-primaryBackground'>
       <Background />
       <Title>Cadastre suas Plantas</Title>
-      <form className='h-42. flex flex-col relative' onSubmit={handleUpload}>
+      <form className='h-42. flex flex-col relative' onSubmit={createProduct}>
 
         <label className='text-white mr-1' htmlFor="name">Nome:</label>
         <input className='text-black rounded-lg p-1' placeholder="Tulipas" type="text" name="name" value={name} required onChange={(e) => setName(e.target.value)} />
