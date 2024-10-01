@@ -1,8 +1,8 @@
-import { addDoc, collection, getFirestore } from 'firebase/firestore'
+import { addDoc, collection, doc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { app, storage } from '../../config/firebaseConfig'
+import { db, storage } from '../../config/firebaseConfig'
 import Background from "../components/Background";
 import Title from "../components/Title";
 
@@ -10,12 +10,11 @@ function RegisterProduct() {
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
   const [category, setCategory] = useState('')
-  const [imgURL, setImgURL] = useState('')
+  const [uploading, setUploading] = useState(false)
   const [progress, setProgress] = useState(0)
 
   const navigate = useNavigate()
 
-  const db = getFirestore(app)
   const productCollectionRef = collection(db, 'products')
   let registeredProduct = {}
 
@@ -28,14 +27,24 @@ function RegisterProduct() {
     registeredProduct = product
   }
 
+  const createUniqueFileName = (file) => {
+    const uniqueID = doc(productCollectionRef).id
+    const imgName = `${uniqueID} - ${file.name}`
+    return imgName
+  }
+
   const handleUpload = (event) => {
     event.preventDefault()
-
     const file = event.target[3]?.files[0]
-    if (!file) return
 
-    const storageRef = ref(storage, `images/${file.name}`)
+    if (!file) return
+    if (!file.type.includes('image')) return alert('Só é permitido imagens')
+
+    const imgName = createUniqueFileName(file)
+    const storageRef = ref(storage, `images/${imgName}`)
     const uploadTask = uploadBytesResumable(storageRef, file)
+
+    setUploading(true)
 
     uploadTask.on(
       "state_changed",
@@ -45,11 +54,10 @@ function RegisterProduct() {
       },
       error => {
         alert(error)
+        setUploading(false)
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          setImgURL(url)
-        })
+        setUploading(false)
       }
     )
   }
@@ -61,20 +69,20 @@ function RegisterProduct() {
       <form className='h-42. flex flex-col relative' onSubmit={handleUpload}>
 
         <label className='text-white mr-1' htmlFor="name">Nome:</label>
-        <input className='text-black rounded-lg p-1' placeholder="Tulipas" type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+        <input className='text-black rounded-lg p-1' placeholder="Tulipas" type="text" name="name" value={name} required onChange={(e) => setName(e.target.value)} />
 
         <label className='text-white mr-2' htmlFor="price">Preço:</label>
-        <input className='text-black rounded-lg p-1' placeholder="15" type="price" name="price" value={price} onChange={(e) => setPrice(e.target.value)} />
+        <input className='text-black rounded-lg p-1' placeholder="15" type="price" name="price" value={price} required onChange={(e) => setPrice(e.target.value)} />
 
         <label className='text-white mr-4' htmlFor="Category">Categoria:</label>
-        <input className='text-black rounded-lg p-1' placeholder="Plantas com Flores" type="text" name="Category" value={category} onChange={(e) => setCategory(e.target.value)} />
+        <input className='text-black rounded-lg p-1' placeholder="Plantas com Flores" type="text" name="Category" value={category} required onChange={(e) => setCategory(e.target.value)} />
 
         <label className='text-white mr-4' htmlFor="Image">Imagem:</label>
-        <input className='text-black rounded-lg p-1' type="file" name='Image' accept='image/' />
+        <input className='text-black rounded-lg p-1' type="file" name='Image' accept='image/' required />
+
         <button className='btn-primary w-48 mx-20 mt-6' type="submit">Cadastrar</button>
 
-        {!imgURL ? '' : <progress className='progress-custom w-full absolute bottom-14' value={progress} max="100" />}
-
+        {!uploading ? '' : <progress className='progress-custom w-full absolute bottom-14' value={progress} max="100" />}
       </form>
       {registeredProduct.name ?
         <p>{registeredProduct.name ? `${registeredProduct.name} registrado com sucesso!` : 'Produto não foi registrado'}</p>
