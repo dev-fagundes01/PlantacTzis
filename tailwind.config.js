@@ -15,12 +15,15 @@ export default {
 			},
 			height: {
 				"42.": "42vh",
+				"78.": "78vh",
 			},
 			colors: {
 				primaryBackground: "var(--primary-background)",
 				secondaryBackground: "var(--secondary-background)",
+				thirdBackground: "var(--third-background)",
 				primaryForeground: "var(--primary-foreground)",
 				secondaryForeground: "var(--secondary-foreground)",
+				thirdForeground: "var(--third-foreground)",
 				primary: "var(--primary)",
 				secondary: "var(--secondary)",
 				destructive: "var(--destructive)",

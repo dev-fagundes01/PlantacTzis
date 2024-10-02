@@ -74,7 +74,7 @@ function RegisterProduct() {
   }
 
   return (
-    <div className='h-screen flex flex-col items-center bg-primaryBackground'>
+    <div className='h-screen flex flex-col items-center bg-secondaryBackground'>
       <Background />
       <Title>Cadastre suas Plantas</Title>
       <form className='h-42. flex flex-col relative' onSubmit={createProduct}>
@@ -99,7 +99,7 @@ function RegisterProduct() {
         <p>{registeredProduct.name ? `${registeredProduct.name} registrado com sucesso!` : 'Produto não foi registrado'}</p>
         : ''
       }
-      <button className='btn-secondary' type="button" onClick={() => navigate("/loja")}>Ir para a loja</button>
+      <button className='btn-third' type="button" onClick={() => navigate("/loja")}>Ir para a loja</button>
     </div>
   );
 }

@@ -1,24 +1,23 @@
 import { collection, getFirestore, onSnapshot } from 'firebase/firestore'
 import { Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { app } from '../../../config/firebaseConfig'
+import { db } from '../../../config/firebaseConfig'
 
 export default function PlantShop() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [products, setProducts] = useState([]);
 
-  const db = getFirestore(app)
   const productCollectionRef = collection(db, 'products')
 
-  // useEffect(() => {
-  //   const unsubscribe = onSnapshot(productCollectionRef, (snapshot) => {
-  //     setProducts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  //   }, (error) => {
-  //     console.error("Error fetching products:", error);
-  //   });
+  useEffect(() => {
+    const unsubscribe = onSnapshot(productCollectionRef, (snapshot) => {
+      setProducts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    }, (error) => {
+      console.error("Error fetching products:", error);
+    });
 
-  //   return () => unsubscribe(); // Clean up the listener on unmount
-  // }, [productCollectionRef]);
+    return () => unsubscribe(); // Clean up the listener on unmount
+  }, [productCollectionRef]);
 
   return (
     <div className="min-h-screen bg-green-50">
@@ -44,30 +43,25 @@ export default function PlantShop() {
         </div>
       </nav>
 
-      <main className="container mx-auto mt-8 p-4">
+      <main className="container h-78. mx-auto p-4">
         <h2 className="text-3xl font-bold mb-6 text-green-800">Nossas Plantas</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-
-          <ul>
-            {products.map((product) => (
-              <li key={product.id}>
-                {/* <img src={plant.image} alt={plant.name} className="w-full h-48 object-cover" /> */}
-                <h3 className="text-green-700 text-xl font-semibold mb-2">{product.name}</h3>
-                <p className="text-green-600 font-bold">{product.category}</p>
-                <p className="text-green-600 font-bold">{product.price}</p>
-                <button
-                  type="button"
-                  className="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300"
-                >
-                  Comprar
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className='flex gap-10 '>
+          {products.map((product) => (
+            <li className='w-52 h-80 text-center' key={product.id}>
+              <img src={product.image} alt='' className="w-full h-48 rounded-sm" />
+              <h3 className="text-green-700 text-xl font-semibold mb-2">{product.name}</h3>
+              <button
+                type="button"
+                className="btn-secondary"
+              >
+                Comprar
+              </button>
+            </li>
+          ))}
+        </ul>
       </main>
 
-      <footer className="bg-green-800 text-white mt-12 py-8">
+      <footer className="w-full py-8 bg-green-800 text-white fixed bottom-0">
         <div className="container mx-auto text-center">
           <p>&copy; 2024 Plant Shop - The Largest in the Country. All rights reserved.</p>
         </div>
