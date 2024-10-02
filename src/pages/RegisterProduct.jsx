@@ -19,27 +19,10 @@ function RegisterProduct() {
   const productCollectionRef = collection(db, 'products')
   let registeredProduct = {}
 
-  async function createProduct(event) {
+  const handleUpload = (event) => {
     event.preventDefault()
     const file = event.target[3]?.files[0]
-    handleUpload(file)
 
-    const product = await addDoc(productCollectionRef, {
-      name,
-      price,
-      category,
-      image
-    })
-    registeredProduct = product
-  }
-
-  const createUniqueFileName = (file) => {
-    const uniqueID = doc(productCollectionRef).id
-    const imgName = `${uniqueID} - ${file.name}`
-    return imgName
-  }
-
-  const handleUpload = (file) => {
     if (!file) return
     if (!file.type.includes('image')) return alert('Só é permitido imagens')
     if (file.size > 1024 * 1024 * 2) {
@@ -67,23 +50,54 @@ function RegisterProduct() {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           setImage(url)
           setUploading(false)
+          createProduct(url)
         })
       }
     )
-    console.log(image);
+  }
+
+  const createUniqueFileName = (file) => {
+    const uniqueID = doc(productCollectionRef).id
+    const imgName = `${uniqueID} - ${file.name}`
+    return imgName
+  }
+
+  async function createProduct(imageURL) {
+    console.log(imageURL);
+    try {
+      const product = await addDoc(productCollectionRef, {
+        name,
+        price,
+        category,
+        image: imageURL
+      })
+      registeredProduct = product
+      resetInputs()
+    } catch (error) {
+      alert(error)
+    }
+
+  }
+
+  function resetInputs() {
+    const textInputs = document.querySelectorAll('input')
+    textInputs[0].value = ''
+    textInputs[1].value = ''
+    textInputs[2].value = ''
+    textInputs[3].value = ''
   }
 
   return (
     <div className='h-screen flex flex-col items-center bg-secondaryBackground'>
       <Background />
       <Title>Cadastre suas Plantas</Title>
-      <form className='h-42. flex flex-col relative' onSubmit={createProduct}>
 
+      <form className='h-42. flex flex-col relative' onSubmit={handleUpload}>
         <label className='text-white mr-1' htmlFor="name">Nome:</label>
         <input className='text-black rounded-lg p-1' placeholder="Tulipas" type="text" name="name" value={name} required onChange={(e) => setName(e.target.value)} />
 
         <label className='text-white mr-2' htmlFor="price">Preço:</label>
-        <input className='text-black rounded-lg p-1' placeholder="15" type="price" name="price" value={price} required onChange={(e) => setPrice(e.target.value)} />
+        <input className='text-black rounded-lg p-1' placeholder="15" type="number" name="price" value={price} required onChange={(e) => setPrice(e.target.value)} />
 
         <label className='text-white mr-4' htmlFor="Category">Categoria:</label>
         <input className='text-black rounded-lg p-1' placeholder="Plantas com Flores" type="text" name="Category" value={category} required onChange={(e) => setCategory(e.target.value)} />
@@ -95,6 +109,7 @@ function RegisterProduct() {
 
         {!uploading ? '' : <progress className='progress-custom w-full absolute bottom-14' value={progress} max="100" />}
       </form>
+
       {registeredProduct.name ?
         <p>{registeredProduct.name ? `${registeredProduct.name} registrado com sucesso!` : 'Produto não foi registrado'}</p>
         : ''
