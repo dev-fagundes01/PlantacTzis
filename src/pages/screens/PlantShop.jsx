@@ -83,8 +83,13 @@ export default function PlantShop() {
       </section>
 
       <footer className="w-full py-8 bg-green-800 text-white">
-        <div className="container mx-auto text-center">
-          <p>&copy; 2024 Plant Shop - The Largest in the Country. All rights reserved.</p>
+        <div className="container mx-auto flex justify-between text-center">
+          <p>Todos os Direitos Reservados &copy; {new Date().getFullYear()} DF-Plantas</p>
+          <a href="https://www.linkedin.com/in/diego-fagundes-da-silva/">
+            <p>
+              Desenvolvido por Diego Fagundes
+            </p>
+          </a>
         </div>
       </footer>
     </div>

@@ -63,7 +63,6 @@ function RegisterProduct() {
   }
 
   async function createProduct(imageURL) {
-    console.log(imageURL);
     try {
       const product = await addDoc(productCollectionRef, {
         name,
@@ -71,12 +70,12 @@ function RegisterProduct() {
         category,
         image: imageURL
       })
-      registeredProduct = product
-      resetInputs()
-    } catch (error) {
+        registeredProduct = product
+        console.log(image);
+        resetInputs()
+      } catch (error) {
       alert(error)
     }
-
   }
 
   function resetInputs() {

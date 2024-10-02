@@ -51,6 +51,18 @@
 }
 
 @layer components {
+  .h2 {
+    @apply text-thirdForeground text-xl font-semibold mb-2
+  }
+
+  .h3 {
+    @apply text-primaryForeground text-xl font-semibold mb-2
+  }
+
+  .p {
+    @apply text-sm mb-4
+  }
+
   .btn-primary {
     @apply p-1 text-2xl rounded-lg bg-primaryBackground 
   }
