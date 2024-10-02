@@ -2,6 +2,7 @@ import { collection, getFirestore, onSnapshot } from 'firebase/firestore'
 import { Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { db } from '../../../config/firebaseConfig'
+import Slider from '../../components/Slider';
 
 export default function PlantShop() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,25 +44,45 @@ export default function PlantShop() {
         </div>
       </nav>
 
-      <main className="container h-78. mx-auto p-4">
-        <h2 className="text-3xl font-bold mb-6 text-green-800">Nossas Plantas</h2>
-        <ul className='flex gap-10 '>
-          {products.map((product) => (
-            <li className='w-52 h-80 text-center' key={product.id}>
-              <img src={product.image} alt='' className="w-full h-48 rounded-sm" />
-              <h3 className="text-green-700 text-xl font-semibold mb-2">{product.name}</h3>
-              <button
-                type="button"
-                className="btn-secondary"
-              >
-                Comprar
-              </button>
-            </li>
-          ))}
-        </ul>
+      <main className="container mx-auto p-8">
+        <Slider title={'Nossas Plantas'} info={products} />
       </main>
+      <section className='w-max mx-auto flex gap-4'>
+        <div>
+          <p className='p w-56'>
+            <h3 className='h2 text-lg'>
+              Plantas Premium
+            </h3>
+            Mudas de Plantas de alta qualidade, produção artesanal.
+          </p>
+        </div>
+        <div>
+          <p className='p w-56'>
+            <h3 className='h2 text-lg'>
+              Espécies Exóticas
+            </h3>
+            Plantas Raras e Exóticas que você só encontra em nosso viveiro.
+          </p>
+        </div>
+        <div>
+          <p className='p w-56'>
+            <h3 className='h2 text-lg'>
+              Parcele 12x Sem Juros
+            </h3>
+            Parcele suas compras em até 12x sem juros no cartão de crédito.
+          </p>
+        </div>
+        <div>
+          <p className='p w-56'>
+            <h3 className='h2 text-lg'>
+              Entrega Grátis
+            </h3>
+            Entrega grátis em todo o Brasil para compras acima de R$250.
+          </p>
+        </div>
+      </section>
 
-      <footer className="w-full py-8 bg-green-800 text-white fixed bottom-0">
+      <footer className="w-full py-8 bg-green-800 text-white">
         <div className="container mx-auto text-center">
           <p>&copy; 2024 Plant Shop - The Largest in the Country. All rights reserved.</p>
         </div>
