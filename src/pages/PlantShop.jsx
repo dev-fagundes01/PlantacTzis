@@ -1,10 +1,10 @@
 import { collection, onSnapshot } from 'firebase/firestore'
 import { useEffect, useState } from 'react';
-import { db } from '../../../config/firebaseConfig'
-import Slider from '../../components/Slider';
+import { db } from '../../config/firebaseConfig'
+import Slider from '../components/Slider';
 
 import { CreditCard, Flower, Leaf, Truck } from 'lucide-react';
-import Header from '../../components/Header';
+import Header from '../components/Header';
 
 export default function PlantShop() {
   const [products, setProducts] = useState([]);
