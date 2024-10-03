@@ -6,7 +6,7 @@
   :root {
     --primary-background: #FFFFFF;
     --secondary-background: #16A34A;
-    --third-background: #FFFFFF;
+    --third-background: #166534;
 
     --primary-foreground: #166534;
     --secondary-foreground: #F2F5F9;
@@ -56,13 +56,17 @@
   }
 
   .h3 {
-    @apply text-primaryForeground text-xl font-semibold mb-2
+    @apply text-primaryForeground text-xl font-semibold flex items-center
   }
 
   .p {
     @apply text-sm mb-4
   }
 
+  .link {
+    @apply block lg:inline-block text-white hover:text-green-200 mt-2 lg:mt-0 lg:ml-4
+  }
+  
   .btn-primary {
     @apply p-1 text-2xl rounded-lg bg-primaryBackground 
   }
