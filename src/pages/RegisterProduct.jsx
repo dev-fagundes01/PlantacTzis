@@ -31,7 +31,7 @@ function RegisterProduct() {
     }
 
     const imgName = createUniqueFileName(file)
-    const storageRef = ref(storage, `images/${imgName}`)
+    const storageRef = ref(storage, `${category}/${imgName}`)
     const uploadTask = uploadBytesResumable(storageRef, file)
 
     setUploading(true)
@@ -64,16 +64,26 @@ function RegisterProduct() {
 
   async function createProduct(imageURL) {
     try {
+      let productCollectionRef
+
+      if(category === 'plants') {
+        productCollectionRef = collection(db, 'plants')
+      } else if(category === 'vases') {
+        productCollectionRef = collection(db, 'vases')
+      }  else {
+        productCollectionRef = collection(db, 'other_products')
+      }
+
       const product = await addDoc(productCollectionRef, {
         name,
         price,
         category,
         image: imageURL
       })
-        registeredProduct = product
-        console.log(image);
-        resetInputs()
-      } catch (error) {
+      registeredProduct = product
+      console.log(image);
+      resetInputs()
+    } catch (error) {
       alert(error)
     }
   }
@@ -99,7 +109,18 @@ function RegisterProduct() {
         <input className='text-black rounded-lg p-1' placeholder="15" type="number" name="price" value={price} required onChange={(e) => setPrice(e.target.value)} />
 
         <label className='text-white mr-4' htmlFor="Category">Categoria:</label>
-        <input className='text-black rounded-lg p-1' placeholder="Plantas com Flores" type="text" name="Category" value={category} required onChange={(e) => setCategory(e.target.value)} />
+        <select
+          className='text-black rounded-lg p-1'
+          name="Category"
+          value={category}
+          required
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="">Selecione a categoria</option>
+          <option value="plants">Plantas</option>
+          <option value="vases">Vasos</option>
+          <option value="other_products">Outros Produtos</option>
+        </select>
 
         <label className='text-white mr-4' htmlFor="Image">Imagem:</label>
         <input className='text-black rounded-lg p-1' type="file" name='Image' accept='image/' required />
@@ -113,7 +134,7 @@ function RegisterProduct() {
         <p>{registeredProduct.name ? `${registeredProduct.name} registrado com sucesso!` : 'Produto não foi registrado'}</p>
         : ''
       }
-      <button className='btn-third' type="button" onClick={() => navigate("/loja")}>Ir para a loja</button>
+      <button className='btn-third' type="submit" onClick={() => navigate("/loja")}>Ir para a loja</button>
     </div>
   );
 }
