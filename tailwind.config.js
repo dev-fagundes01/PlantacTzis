@@ -11,11 +11,19 @@ export default {
 		},
 		extend: {
 			width: {
-				36: "36rem",
+				"36.": "36rem",
 			},
 			height: {
-				"42.": "42vh",
 				"78.": "78vh",
+			},
+			borderRadius: {
+				lg: "var(--radius)",
+				md: "calc(var(--radius) - 2px)",
+				sm: "calc(var(--radius) - 4px)",
+			},
+			fontSize: {
+				zx: "0.5rem",
+				z: "0.35rem",
 			},
 			colors: {
 				primaryBackground: "var(--primary-background)",
@@ -29,11 +37,6 @@ export default {
 				destructive: "var(--destructive)",
 				accent: "var(--accent)",
 				card: "var(--card)",
-			},
-			borderRadius: {
-				lg: "var(--radius)",
-				md: "calc(var(--radius) - 2px)",
-				sm: "calc(var(--radius) - 4px)",
 			},
 			keyframes: {
 				"accordion-down": {

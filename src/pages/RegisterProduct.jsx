@@ -66,11 +66,11 @@ function RegisterProduct() {
     try {
       let productCollectionRef
 
-      if(category === 'plants') {
+      if (category === 'plants') {
         productCollectionRef = collection(db, 'plants')
-      } else if(category === 'vases') {
+      } else if (category === 'vases') {
         productCollectionRef = collection(db, 'vases')
-      }  else {
+      } else {
         productCollectionRef = collection(db, 'other_products')
       }
 
@@ -97,20 +97,21 @@ function RegisterProduct() {
   }
 
   return (
-    <div className='h-screen flex flex-col items-center bg-secondaryBackground'>
+    <div className='h-screen p-4 bg-secondaryBackground flex flex-col overflow-y-auto md:items-center'>
       <Background />
       <Title>Cadastre suas Plantas</Title>
 
-      <form className='h-42. flex flex-col relative' onSubmit={handleUpload}>
-        <label className='text-white mr-1' htmlFor="name">Nome:</label>
-        <input className='text-black rounded-lg p-1' placeholder="Tulipas" type="text" name="name" value={name} required onChange={(e) => setName(e.target.value)} />
+      <form className='pb-2 flex flex-col' onSubmit={handleUpload}>
 
-        <label className='text-white mr-2' htmlFor="price">Preço:</label>
-        <input className='text-black rounded-lg p-1' placeholder="15" type="number" name="price" value={price} required onChange={(e) => setPrice(e.target.value)} />
+        <label className='text-white ml-4' htmlFor="name">Nome:</label>
+        <input className='input-c ml-4' placeholder="Tulipas" type="text" name="name" value={name} required onChange={(e) => setName(e.target.value)} />
 
-        <label className='text-white mr-4' htmlFor="Category">Categoria:</label>
+        <label className='text-white ml-4' htmlFor="price">Preço:</label>
+        <input className='input-c ml-4' placeholder="15" type="number" name="price" value={price} required onChange={(e) => setPrice(e.target.value)} />
+
+        <label className='text-white ml-4' htmlFor="Category">Categoria:</label>
         <select
-          className='text-black rounded-lg p-1'
+          className='input-c ml-4'
           name="Category"
           value={category}
           required
@@ -122,12 +123,13 @@ function RegisterProduct() {
           <option value="other_products">Outros Produtos</option>
         </select>
 
-        <label className='text-white mr-4' htmlFor="Image">Imagem:</label>
-        <input className='text-black rounded-lg p-1' type="file" name='Image' accept='image/' required />
+        <label className='text-white ml-4' htmlFor="Image">Imagem:</label>
+        <input className='input-c ml-4' type="file" name='Image' accept='image/' required />
 
-        <button className='btn-primary w-48 mx-20 mt-6' type="submit">Cadastrar</button>
+        {!uploading ? '' : <progress className='progress-custom w-96' value={progress} max="100" />}
 
-        {!uploading ? '' : <progress className='progress-custom w-full absolute bottom-14' value={progress} max="100" />}
+        <button className='btn-primary' type="submit">Cadastrar</button>
+
       </form>
 
       {registeredProduct.name ?
