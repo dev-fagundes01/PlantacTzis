@@ -79,9 +79,6 @@ export default function Header() {
           <a href="#l" className="link">Contato</a>
         </PopoverGroup>
       </nav>
-      <Dialog open={isMenuOpen} onClose={setIsMenuOpen}>
-
-      </Dialog>
     </header>
   )
 }

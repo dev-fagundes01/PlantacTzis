@@ -14,7 +14,7 @@ export default function PlantShop() {
 
   const plantsCollectionRef = collection(db, 'plants')
   const vasesCollectionRef = collection(db, 'vases')
-  const otherCollectionRef = collection(db, 'other')
+  const otherCollectionRef = collection(db, 'other_products')
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
