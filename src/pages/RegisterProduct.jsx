@@ -13,26 +13,37 @@ function RegisterProduct() {
   const [image, setImage] = useState('')
   const [uploading, setUploading] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [confirmDivVisible, setConfirmDivVisible] = useState(false)
+  const [confirmationData, setConfirmationData] = useState({})
+  const [registeredProduct, setRegisteredProduct] = useState(null)
 
   const navigate = useNavigate()
 
-  const productCollectionRef = collection(db, 'products')
-  let registeredProduct = {}
-
-  const handleUpload = (event) => {
+  const confirmProducts = (event) => {
     event.preventDefault()
-    const file = event.target[3]?.files[0]
 
-    if (!file) return
-    if (!file.type.includes('image')) return alert('Só é permitido imagens')
-    if (file.size > 1024 * 1024 * 2) {
+    const formData = {
+      name,
+      price,
+      category,
+      imageName: image ? image.name : ''
+    }
+    setConfirmationData(formData)
+    setConfirmDivVisible(true)
+    console.log(formData);
+  }
+
+  const handleUpload = () => {
+    if (!image) return alert('Por favor, selecione uma imagem')
+    if (!image.type.includes('image')) return alert('Só é permitido imagens')
+    if (image.size > 1024 * 1024 * 2) {
       alert(`A imagem não pode ser maior do que 2MB. Imagem selecionada tem: ${(file.size / 1024 / 1024).toFixed(3)} +  MB`)
       return
     }
 
-    const imgName = createUniqueFileName(file)
+    const imgName = createUniqueFileName(image)
     const storageRef = ref(storage, `${category}/${imgName}`)
-    const uploadTask = uploadBytesResumable(storageRef, file)
+    const uploadTask = uploadBytesResumable(storageRef, image)
 
     setUploading(true)
 
@@ -48,8 +59,6 @@ function RegisterProduct() {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          setImage(url)
-          setUploading(false)
           createProduct(url)
         })
       }
@@ -57,9 +66,8 @@ function RegisterProduct() {
   }
 
   const createUniqueFileName = (file) => {
-    const uniqueID = doc(productCollectionRef).id
-    const imgName = `${uniqueID} - ${file.name}`
-    return imgName
+    const uniqueID = doc(collection(db, 'products')).id
+    return `${uniqueID} - ${file.name}`
   }
 
   async function createProduct(imageURL) {
@@ -80,20 +88,25 @@ function RegisterProduct() {
         category,
         image: imageURL
       })
-      registeredProduct = product
-      console.log(image);
+
+      setRegisteredProduct(product);
       resetInputs()
+      setUploading(false)
+      setConfirmDivVisible(false)
     } catch (error) {
       alert(error)
     }
   }
 
   function resetInputs() {
-    const textInputs = document.querySelectorAll('input')
-    textInputs[0].value = ''
-    textInputs[1].value = ''
-    textInputs[2].value = ''
-    textInputs[3].value = ''
+    setName('')
+    setPrice('')
+    setCategory('')
+    setImage('')
+
+    setTimeout(() => {
+      setRegisteredProduct(null)
+    }, 4000);
   }
 
   return (
@@ -101,8 +114,7 @@ function RegisterProduct() {
       <Background />
       <Title>Cadastre suas Plantas</Title>
 
-      <form className='pb-2 flex flex-col' onSubmit={handleUpload}>
-
+      <form className='pb-2 flex flex-col relative' onSubmit={(e) => confirmProducts(e)}>
         <label className='text-white ml-4' htmlFor="name">Nome:</label>
         <input className='input-c ml-4' placeholder="Tulipas" type="text" name="name" value={name} required onChange={(e) => setName(e.target.value)} />
 
@@ -124,19 +136,35 @@ function RegisterProduct() {
         </select>
 
         <label className='text-white ml-4' htmlFor="Image">Imagem:</label>
-        <input className='input-c ml-4' type="file" name='Image' accept='image/' required />
+        <input className='input-c ml-4 cursor-pointer' type="file" name='Image' accept='image/' required onChange={(e) => setImage(e.target.files[0])} />
+
 
         {!uploading ? '' : <progress className='progress-custom w-96' value={progress} max="100" />}
+        {registeredProduct &&
+          <p className='p mb-0 text-center'>{registeredProduct.name} registrado com sucesso!</p>
+        }
 
         <button className='btn-primary' type="submit">Cadastrar</button>
-
       </form>
 
-      {registeredProduct.name ?
-        <p>{registeredProduct.name ? `${registeredProduct.name} registrado com sucesso!` : 'Produto não foi registrado'}</p>
-        : ''
-      }
-      <button className='btn-third' type="submit" onClick={() => navigate("/loja")}>Ir para a loja</button>
+      {confirmDivVisible && (
+        <div className='p-4 rounded-lg bg-primaryBackground fixed top-72' id="confirmDiv">
+          <h3 className='h3-c'>Verificar Dados do Produto</h3>
+          <p>Nome: {confirmationData.name}</p>
+          <p>Preço: R$ {confirmationData.price}</p>
+          <p>Categoria: {confirmationData.category}</p>
+          <p>Imagem: {confirmationData.imageName}</p>
+          <button className='btn-third mx-4 mt-2 text-xs' type="button" id="confirm-btn" onClick={(e) => handleUpload(e)}>
+            Confirmar Dados
+          </button>
+          <button className='btn-third mx-4 text-xs' type="button" id="cancel-btn" onClick={() => setConfirmDivVisible(false)}>
+            Cancelar
+          </button>
+        </div>
+      )}
+
+
+      <button className='btn-third' type="button" onClick={() => navigate("/loja")}>Ir para a loja</button>
     </div>
   );
 }
