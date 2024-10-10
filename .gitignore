@@ -1,2 +1,8 @@
 node_modules
 config
+dist
+hosting.ZGlzdA.cache
+storage.rules
+firestore.rules
+firebase-debug.log
+firestore.indexes.json
