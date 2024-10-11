@@ -30,7 +30,6 @@ function RegisterProduct() {
     }
     setConfirmationData(formData)
     setConfirmDivVisible(true)
-    console.log(formData);
   }
 
   const handleUpload = () => {
@@ -114,16 +113,16 @@ function RegisterProduct() {
       <Background />
       <Title>Cadastre suas Plantas</Title>
 
-      <form className='pb-2 flex flex-col relative' onSubmit={(e) => confirmProducts(e)}>
-        <label className='text-white ml-4' htmlFor="name">Nome:</label>
-        <input className='input-c ml-4' placeholder="Tulipas" type="text" name="name" value={name} required onChange={(e) => setName(e.target.value)} />
+      <form className='w-fit mx-auto pb-2 flex flex-col' onSubmit={(e) => confirmProducts(e)}>
+        <label className='text-white' htmlFor="name">Nome:</label>
+        <input className='input-c' placeholder="Tulipas" type="text" name="name" value={name} required onChange={(e) => setName(e.target.value)} />
 
-        <label className='text-white ml-4' htmlFor="price">Preço:</label>
-        <input className='input-c ml-4' placeholder="15" type="number" name="price" value={price} required onChange={(e) => setPrice(e.target.value)} />
+        <label className='text-white' htmlFor="price">Preço:</label>
+        <input className='input-c' placeholder="15" type="number" name="price" value={price} required onChange={(e) => setPrice(e.target.value)} />
 
-        <label className='text-white ml-4' htmlFor="Category">Categoria:</label>
+        <label className='text-white' htmlFor="Category">Categoria:</label>
         <select
-          className='input-c ml-4'
+          className='input-c'
           name="Category"
           value={category}
           required
@@ -135,8 +134,8 @@ function RegisterProduct() {
           <option value="other_products">Outros Produtos</option>
         </select>
 
-        <label className='text-white ml-4' htmlFor="Image">Imagem:</label>
-        <input className='input-c ml-4 cursor-pointer' type="file" name='Image' accept='image/' required onChange={(e) => setImage(e.target.files[0])} />
+        <label className='text-white' htmlFor="Image">Imagem:</label>
+        <input className='input-c cursor-pointer' type="file" name='Image' accept='image/' required onChange={(e) => setImage(e.target.files[0])} />
 
 
         {!uploading ? '' : <progress className='progress-custom w-96' value={progress} max="100" />}
@@ -148,18 +147,22 @@ function RegisterProduct() {
       </form>
 
       {confirmDivVisible && (
-        <div className='p-4 rounded-lg bg-primaryBackground fixed top-72' id="confirmDiv">
-          <h3 className='h3-c'>Verificar Dados do Produto</h3>
-          <p>Nome: {confirmationData.name}</p>
-          <p>Preço: R$ {confirmationData.price}</p>
-          <p>Categoria: {confirmationData.category}</p>
-          <p>Imagem: {confirmationData.imageName}</p>
-          <button className='btn-third mx-4 mt-2 text-xs' type="button" id="confirm-btn" onClick={(e) => handleUpload(e)}>
-            Confirmar Dados
-          </button>
-          <button className='btn-third mx-4 text-xs' type="button" id="cancel-btn" onClick={() => setConfirmDivVisible(false)}>
-            Cancelar
-          </button>
+        <div className='h-screen w-11/12 fixed flex justify-center items-center'>
+          <div className='p-4 rounded-lg bg-primaryBackground'>
+            <h2 className='h2-c'>Verificar Dados do Produto</h2>
+            <p className='text-xs md:text-sm'>Nome: {confirmationData.name}</p>
+            <p className='text-xs md:text-sm'>Preço: R$ {confirmationData.price}</p>
+            <p className='text-xs md:text-sm'>Categoria: {confirmationData.category}</p>
+            <p className='text-xs md:text-sm'>Imagem: {confirmationData.imageName}</p>
+            <div className='flex gap-2 justify-center'>
+              <button className='btn-third mt-1 mx-0  px-1 py-0 text-xs md:text-sm md:leading-4' type="button" id="confirm-btn" onClick={(e) => handleUpload(e)}>
+                Confirmar
+              </button>
+              <button className='btn-third mt-1 mx-0 px-1 py-0 text-xs md:text-sm md:leading-4' type="button" id="cancel-btn" onClick={() => setConfirmDivVisible(false)}>
+                Cancelar
+              </button>
+            </div>
+          </div>
         </div>
       )}
 

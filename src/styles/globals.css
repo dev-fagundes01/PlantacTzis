@@ -60,7 +60,7 @@
   }
 
   .p {
-    @apply text-zx md:text-sm md:mb-4
+    @apply text-zx md:text-sm
   }
 
   .link {
