@@ -12,6 +12,7 @@ export default {
 		extend: {
 			width: {
 				"36.": "36rem",
+				"28.": "28rem"
 			},
 			height: {
 				"78.": "78vh",

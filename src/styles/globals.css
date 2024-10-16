@@ -50,7 +50,11 @@
   }
 }
 
-@layer components {
+@layer components {  
+  .div-c {
+    @apply p-3 rounded-lg
+  }
+
   .h2-c {
     @apply text-thirdForeground text-sm font-semibold md:mb-2 md:text-xl
   }
@@ -76,7 +80,7 @@
   }
 
   .label-c {
-    @apply text-white mr-1
+    @apply text-xs text-white md:text-base
   }
   
   .btn-primary {
