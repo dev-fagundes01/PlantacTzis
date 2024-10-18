@@ -6,6 +6,7 @@ import OpenEye from '../assets/eye.png'
 import CloseEye from '../assets/eye_121.png'
 import Google from '../assets/google-icon.png'
 import Loading from '../assets/loading.gif'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login({ showLogin }) {
   const [email, setEmail] = useState('')
@@ -13,6 +14,8 @@ export default function Login({ showLogin }) {
   const [error, setError] = useState('')
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+
+  const navigate = useNavigate()
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -27,7 +30,7 @@ export default function Login({ showLogin }) {
 
       if (userDoc.exists() && userDoc.data().isAdmin) {
         console.log('Admin logged in')
-        showLogin(true)
+        navigate('/cadastrar-produtos')
       } else {
         setError("Acesso não autorizado")
       }

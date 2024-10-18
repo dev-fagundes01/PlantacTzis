@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { db, storage } from '../../config/firebaseConfig'
 import Background from "../components/Background";
 import Title from "../components/Title";
-import Login from './Login'
 import Loading from '../assets/loading.gif'
 
 function RegisterProduct() {
@@ -18,7 +17,6 @@ function RegisterProduct() {
   const [confirmDivVisible, setConfirmDivVisible] = useState(false)
   const [confirmationData, setConfirmationData] = useState({})
   const [registeredProduct, setRegisteredProduct] = useState(null)
-  const [showLogin, setShowLogin] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
   const navigate = useNavigate()
@@ -115,10 +113,6 @@ function RegisterProduct() {
   }
 
   return (
-    <>
-      {!showLogin ?
-        <Login showLogin={setShowLogin} />
-        :
         <div className='h-screen p-4 bg-secondaryBackground flex flex-col overflow-y-auto md:items-center'>
           <Background />
           <Title>Cadastre suas Plantas</Title>
@@ -177,12 +171,8 @@ function RegisterProduct() {
             </div>
           )}
 
-
           <button className='btn-third' type="button" onClick={() => navigate("/loja")}>Ir para a loja</button>
         </div>
-      }
-    </>
-
   );
 }
 
