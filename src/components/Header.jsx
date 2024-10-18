@@ -3,11 +3,6 @@
 import { Menu, X } from 'lucide-react';
 
 import {
-  Dialog,
-  DialogPanel,
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
   Popover,
   PopoverButton,
   PopoverGroup,
@@ -30,13 +25,19 @@ const products = [
   }
 ];
 
+const trimmedProducts =  products.map(product => ({
+  ...product,
+  name: product.name.trim(),
+  description: product.description.trim()  
+}))
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header className="px-4 bg-secondaryBackground flex items-center justify-between">
       <h1 className="text-white text-base font-bold md:text-2xl">DF-Plantas</h1>
-      <nav aria-label="Global" className="p-2 max-w-7xl text-end">
+      <nav aria-label="Global" className="p-1 max-w-7xl text-end relative">
         <button
           type="button"
           className="icon text-white md:hidden"
@@ -45,30 +46,29 @@ export default function Header() {
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
-        <PopoverGroup className={`${isMenuOpen ? 'block' : 'hidden'} mt-4 md:mt-0 md:flex md:gap-x-4`}>
-          <a href="#l" className="link">Início</a>
-          <Popover className="relative ml-4">
-            <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-secondaryForeground">
+        <PopoverGroup className={`${isMenuOpen ? 'block' : 'hidden'} md:flex md:gap-x-4 items-baseline`}>
+          <a href="#l" className="link mb-4">Início</a>
+          <Popover className="absolute bottom-[2rem] right-[-0.8rem] md:static">
+            <PopoverButton className="mr-4 flex items-center text-xs font-semibold leading-6 text-secondaryForeground relative md:mr-0">
               Produtos
-              <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
+              <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400 absolute right-[-15px] top-[3px] md:static" />
             </PopoverButton>
 
             <PopoverPanel
               transition
-              className="absolute -left-8 top-full z-10 mt-3 w-80 max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
+              className="absolute right-[0.5rem] top-full z-10 max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
             >
-              <div className="p-2">
-                {products.map((item) => (
+              <div className="w-32 p-1">
+                {trimmedProducts.map((item) => (
                   <div
                     key={item.name}
-                    className="group relative flex items-center gap-x-6 rounded-lg p-2 text-sm leading-6 hover:bg-gray-50"
+                    className="relative flex items-center rounded-lg p-1 text-sm hover:bg-gray-50"
                   >
                     <div className="flex-auto">
-                      <a href={item.href} className="block font-semibold text-gray-900">
+                      <a href={item.href} className="text-semiBase leading-3 block font-semibold text-gray-900">
                         {item.name}
-                        <span className="absolute inset-0" />
                       </a>
-                      <p className="mt-1 text-gray-600">{item.description}</p>
+                      <p className="text-zx leading-[.5rem] text-gray-600">{item.description}</p>
                     </div>
                   </div>
                 ))}

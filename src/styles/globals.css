@@ -68,7 +68,7 @@
   }
 
   .link {
-    @apply block md:inline-block text-white hover:text-green-200 mt-2 md:mt-0
+    @apply text-xs block md:inline-block text-white hover:text-green-200
   }
 
   .img {

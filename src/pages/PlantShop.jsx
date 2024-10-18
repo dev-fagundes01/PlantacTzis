@@ -104,7 +104,7 @@ export default function PlantShop() {
           </div>
           <a href="https://diego-fagundes-links.netlify.app/?fbclid=PAZXh0bgNhZW0CMTEAAaYKeVzi1XXM9tgpIFd_ZjC8z1dDtiTkAPR0Ttj9o6LtylYial0w_Ur86Do_aem_MK27d1KMJgfb4miHo5RofQ" target="_blank" rel="noreferrer">
             <p className='p'>
-              Desenvolvido por Diego Fagundes
+              Desenvolvido por <span className='text-[#dfc672]'><b>Diego Fagundes</b></span>
             </p>
           </a>
         </div>

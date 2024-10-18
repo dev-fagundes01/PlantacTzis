@@ -23,8 +23,9 @@ export default {
 				sm: "calc(var(--radius) - 4px)",
 			},
 			fontSize: {
-				zx: "0.5rem",
-				z: "0.35rem",
+				semiBase: ".65rem",
+				zx: ".5rem",
+				z: ".35rem",
 			},
 			colors: {
 				primaryBackground: "var(--primary-background)",
@@ -37,7 +38,6 @@ export default {
 				secondary: "var(--secondary)",
 				destructive: "var(--destructive)",
 				accent: "var(--accent)",
-				card: "var(--card)",
 			},
 			keyframes: {
 				"accordion-down": {
