@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
-import Card from './Card';
+import Card from './CardProduto';
 
 export default function Slider({ info, title }) {
   return (
@@ -15,9 +15,9 @@ export default function Slider({ info, title }) {
         className='swiper p-2 md:py-4'
         onSlideChange={() => console.log('slide change')}
       >
-        {info.map((item) => (
-          <SwiperSlide key={item.id || item.image} className='md:!w-52 md:h-80'>
-            <Card item={item} />
+        {info.map((produto) => (
+          <SwiperSlide key={produto.id || produto.image} className='md:!w-52 md:h-80'>
+            <Card produto={produto} />
           </SwiperSlide>
         ))}
       </Swiper>
