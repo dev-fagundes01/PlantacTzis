@@ -9,9 +9,9 @@ export default function Card({ produto }) {
 
   return (
     <div className="w-fit flex flex-col items-center cursor-grab">
-      <img className="img" loading="lazy" src={produto.image} alt="" />
+      <img className="img-c" loading="lazy" src={produto.image} alt="" />
       <h3 className="h3-c">{produto.name}</h3>
-      <p className="p mb-2">Preço: R$ {produto.price},00</p>
+      <p className="p-c mb-2">Preço: R$ {produto.price},00</p>
       <button type="button">
         <a
           href={gerarLinkWhatsApp(produto)}

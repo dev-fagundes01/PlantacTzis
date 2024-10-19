@@ -3,9 +3,9 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { db, storage } from '../../config/firebaseConfig'
+import Loading from '../assets/loading.gif'
 import Background from "../components/Background";
 import Title from "../components/Title";
-import Loading from '../assets/loading.gif'
 
 function RegisterProduct() {
   const [name, setName] = useState('')
@@ -113,66 +113,66 @@ function RegisterProduct() {
   }
 
   return (
-        <div className='h-screen p-4 bg-secondaryBackground flex flex-col overflow-y-auto md:items-center'>
-          <Background />
-          <Title>Cadastre suas Plantas</Title>
-          <form className='w-fit mx-auto pb-2 flex flex-col relative' onSubmit={(e) => confirmProducts(e)}>
-            <label className='label-c' htmlFor="name">Nome:</label>
-            <input className='input-c' placeholder="Tulipas" type="text" name="name" required value={name} onChange={(e) => setName(e.target.value)} />
+    <div className='h-screen p-4 bg-secondaryBackground flex flex-col overflow-y-auto md:items-center'>
+      <Background />
+      <Title>Cadastre suas Plantas</Title>
+      <form className='w-fit mx-auto pb-2 flex flex-col relative' onSubmit={(e) => confirmProducts(e)}>
+        <label className='label-c' htmlFor="name">Nome:</label>
+        <input className='input-c' placeholder="Tulipas" type="text" name="name" required value={name} onChange={(e) => setName(e.target.value)} />
 
-            <label className='label-c' htmlFor="price">Preço:</label>
-            <input className='input-c' placeholder="15" type="number" name="price" required value={price} onChange={(e) => setPrice(e.target.value)} />
+        <label className='label-c' htmlFor="price">Preço:</label>
+        <input className='input-c' placeholder="15" type="number" name="price" required value={price} onChange={(e) => setPrice(e.target.value)} />
 
-            {isLoading && <img className='h-20 w-20 mx-[9.5rem] absolute top-[3.5rem]' src={Loading} alt="Imagem de carregamento" />}
+        {isLoading && <img className='h-20 w-20 mx-[9.5rem] absolute top-[3.5rem]' src={Loading} alt="Imagem de carregamento" />}
 
-            <label className='label-c' htmlFor="Category">Categoria:</label>
-            <select
-              className='input-c'
-              name="Category"
-              value={category}
-              required
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="">Selecione a categoria</option>
-              <option value="plants">Plantas</option>
-              <option value="vases">Vasos</option>
-              <option value="other_products">Outros Produtos</option>
-            </select>
+        <label className='label-c' htmlFor="Category">Categoria:</label>
+        <select
+          className='input-c'
+          name="Category"
+          value={category}
+          required
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="">Selecione a categoria</option>
+          <option value="plants">Plantas</option>
+          <option value="vases">Vasos</option>
+          <option value="other_products">Outros Produtos</option>
+        </select>
 
-            <label className='label-c' htmlFor="Image">Imagem:</label>
-            <input className='input-c cursor-pointer' type="file" name='Image' accept='image/' required onChange={(e) => setImage(e.target.files[0])} />
+        <label className='label-c' htmlFor="Image">Imagem:</label>
+        <input className='input-c cursor-pointer' type="file" name='Image' accept='image/' required onChange={(e) => setImage(e.target.files[0])} />
 
 
-            {!uploading ? '' : <progress className='progress-custom w-96' value={progress} max="100" />}
-            {registeredProduct &&
-              <p className='p mb-0 text-center'>{registeredProduct.name} registrado com sucesso!</p>
-            }
+        {!uploading ? '' : <progress className='progress-custom w-96' value={progress} max="100" />}
+        {registeredProduct &&
+          <p className='p-c mb-0 text-center'>{registeredProduct.name} registrado com sucesso!</p>
+        }
 
-            <button className='btn-primary' type="submit">Cadastrar</button>
-          </form>
+        <button className='btn-primary' type="submit">Cadastrar</button>
+      </form>
 
-          {confirmDivVisible && (
-            <div className='h-screen w-11/12 fixed flex justify-center items-center'>
-              <div className='p-4 rounded-lg bg-primaryBackground'>
-                <h2 className='h2-c'>Verificar Dados do Produto</h2>
-                <p className='text-xs md:text-sm'>Nome: {confirmationData.name}</p>
-                <p className='text-xs md:text-sm'>Preço: R$ {confirmationData.price}</p>
-                <p className='text-xs md:text-sm'>Categoria: {confirmationData.category}</p>
-                <p className='text-xs md:text-sm'>Imagem: {confirmationData.imageName}</p>
-                <div className='flex gap-2 justify-center'>
-                  <button className='btn-third mt-1 mx-0  px-1 py-0 text-xs md:text-sm md:leading-4' type="button" id="confirm-btn" onClick={(e) => handleUpload(e)}>
-                    Confirmar
-                  </button>
-                  <button className='btn-third mt-1 mx-0 px-1 py-0 text-xs md:text-sm md:leading-4' type="button" id="cancel-btn" onClick={() => setConfirmDivVisible(false)}>
-                    Cancelar
-                  </button>
-                </div>
-              </div>
+      {confirmDivVisible && (
+        <div className='h-screen w-11/12 fixed flex justify-center items-center'>
+          <div className='p-4 rounded-lg bg-primaryBackground'>
+            <h2 className='h2-c'>Verificar Dados do Produto</h2>
+            <p className='text-xs md:text-sm'>Nome: {confirmationData.name}</p>
+            <p className='text-xs md:text-sm'>Preço: R$ {confirmationData.price}</p>
+            <p className='text-xs md:text-sm'>Categoria: {confirmationData.category}</p>
+            <p className='text-xs md:text-sm'>Imagem: {confirmationData.imageName}</p>
+            <div className='flex gap-2 justify-center'>
+              <button className='btn-third mt-1 mx-0  px-1 py-0 text-xs md:text-sm md:leading-4' type="button" id="confirm-btn" onClick={(e) => handleUpload(e)}>
+                Confirmar
+              </button>
+              <button className='btn-third mt-1 mx-0 px-1 py-0 text-xs md:text-sm md:leading-4' type="button" id="cancel-btn" onClick={() => setConfirmDivVisible(false)}>
+                Cancelar
+              </button>
             </div>
-          )}
-
-          <button className='btn-third' type="button" onClick={() => navigate("/loja")}>Ir para a loja</button>
+          </div>
         </div>
+      )}
+
+      <button className='btn-third' type="button" onClick={() => navigate("/loja")}>Ir para a loja</button>
+    </div>
   );
 }
 

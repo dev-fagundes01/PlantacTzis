@@ -63,7 +63,7 @@
     @apply  text-primaryForeground text-zx md:text-xl font-semibold flex items-center
   }
 
-  .p {
+  .p-c {
     @apply text-zx md:text-sm
   }
 
@@ -71,7 +71,7 @@
     @apply text-xs block md:inline-block text-white hover:text-green-200
   }
 
-  .img {
+  .img-c {
     @apply w-16 h-16 rounded-sm md:w-52 md:h-48
   }
 

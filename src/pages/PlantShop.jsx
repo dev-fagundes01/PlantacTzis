@@ -58,7 +58,7 @@ export default function PlantShop() {
             <Flower className='icon' />
             Plantas Premium
           </h3-c>
-          <p className='p w-32 md:w-56'>
+          <p className='p-c w-32 md:w-56'>
             Mudas de Plantas de alta qualidade, produção artesanal.
           </p>
         </div>
@@ -67,7 +67,7 @@ export default function PlantShop() {
             <Leaf className='icon' />
             Espécies Exóticas
           </h3-c>
-          <p className='p w-32 md:w-56'>
+          <p className='p-c w-32 md:w-56'>
             Plantas Raras e Exóticas que você só encontra em nosso viveiro.
           </p>
         </div>
@@ -76,7 +76,7 @@ export default function PlantShop() {
             <CreditCard className='icon' />
             Parcele 12x Sem Juros
           </h3-c>
-          <p className='p w-32 md:w-56'>
+          <p className='p-c w-32 md:w-56'>
             Parcele suas compras em até 12x sem juros no cartão de crédito.
           </p>
         </div>
@@ -85,7 +85,7 @@ export default function PlantShop() {
             <Truck className='icon' />
             Entrega Grátis
           </h3-c>
-          <p className='p w-32 md:w-56'>
+          <p className='p-c w-32 md:w-56'>
             Entrega grátis em todo o Brasil para compras acima de R$250.
           </p>
         </div>
@@ -95,7 +95,7 @@ export default function PlantShop() {
 
       <footer className="w-full py-8 bg-thirdBackground text-secondaryForeground">
         <div className="container mx-auto flex gap-1 justify-between text-center">
-          <p className='p'>Todos os Direitos Reservados &copy; {new Date().getFullYear()} DF-Plantas</p>
+          <p className='p-c'>Todos os Direitos Reservados &copy; {new Date().getFullYear()} DF-Plantas</p>
           <div className='flex gap-1 md:gap-4'>
             <Mail className='icon' />
             <Phone className='icon' />
@@ -103,7 +103,7 @@ export default function PlantShop() {
             <FaInstagram className='icon' />
           </div>
           <a href="https://diego-fagundes-links.netlify.app/?fbclid=PAZXh0bgNhZW0CMTEAAaYKeVzi1XXM9tgpIFd_ZjC8z1dDtiTkAPR0Ttj9o6LtylYial0w_Ur86Do_aem_MK27d1KMJgfb4miHo5RofQ" target="_blank" rel="noreferrer">
-            <p className='p'>
+            <p className='p-c'>
               Desenvolvido por <span className='text-[#dfc672]'><b>Diego Fagundes</b></span>
             </p>
           </a>
