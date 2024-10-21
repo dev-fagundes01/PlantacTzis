@@ -1,47 +1,12 @@
-import { collection, onSnapshot } from 'firebase/firestore'
-import { useEffect, useState } from 'react';
-import { db } from '../../config/firebaseConfig'
 import Slider from '../components/Slider';
 
 import { CreditCard, Flower, Leaf, Mail, Phone, Truck } from 'lucide-react';
 import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import Header from '../components/Header';
+import { useProduct } from '../context/ProductContext';
 
 export default function PlantShop() {
-  const [plants, setPlants] = useState([]);
-  const [vases, setVases] = useState([]);
-  const [other, setOther] = useState([]);
-
-  const plantsCollectionRef = collection(db, 'plants')
-  const vasesCollectionRef = collection(db, 'vases')
-  const otherCollectionRef = collection(db, 'other_products')
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(() => {
-    const unsubscribePlants = onSnapshot(plantsCollectionRef, (snapshot) => {
-      setPlants(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    }, (error) => {
-      console.error("Error fetching plants:", error);
-    });
-
-    const unsubscribeVases = onSnapshot(vasesCollectionRef, (snapshot) => {
-      setVases(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    }, (error) => {
-      console.error("Error fetching vases:", error);
-    })
-
-    const unsubscribeOther = onSnapshot(otherCollectionRef, (snapshot) => {
-      setOther(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-    }, (error) => {
-      console.error("Error fetching other:", error);
-    })
-
-    return () => {
-      unsubscribePlants()
-      unsubscribeVases()
-      unsubscribeOther()
-    }; // Clean up the listener on unmount
-  }, []);
+  const { plants, vases, other } = useProduct()
 
   return (
     <div className="min-h-screen bg-primaryBackground overflow-hidden">

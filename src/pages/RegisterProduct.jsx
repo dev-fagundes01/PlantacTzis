@@ -171,7 +171,10 @@ function RegisterProduct() {
         </div>
       )}
 
-      <button className='btn-third' type="button" onClick={() => navigate("/loja")}>Ir para a loja</button>
+      <div className='flex flex-col gap-2 md:flex-row'>
+        <button className='btn-third md:mx-0' type="button" onClick={() => navigate("/loja")}>Ir para a loja</button>
+        <button className='btn-third md:mx-0' type="button" onClick={() => navigate("/gerenciar-produtos")}>Ir para produtos</button>
+      </div>
     </div>
   );
 }
