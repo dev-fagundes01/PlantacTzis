@@ -17,7 +17,7 @@ export default function Slider({ info, title }) {
       >
         {info.map((produto) => (
           <SwiperSlide key={produto.id || produto.image} className='md:!w-52 md:h-80'>
-            <Card produto={produto} />
+            <Card produto={produto} btn={true} />
           </SwiperSlide>
         ))}
       </Swiper>
