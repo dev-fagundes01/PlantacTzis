@@ -74,7 +74,7 @@ export default function Login({ showLogin }) {
 
         <button className="btn-primary mt-6 text-lg" type="submit">Entrar</button>
         <p className="p-c my-4 text-secondaryForeground">Ou entre com</p>
-        <img className='rounded-full' src={Google} alt="Autenticação pelo Google" />
+        {/* <img className='rounded-full' src={Google} alt="Autenticação pelo Google" /> */}
       </form>
       {error && <p className="p-c my-4 text-red-500">{error}</p>}
     </div>

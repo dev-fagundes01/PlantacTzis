@@ -4,35 +4,35 @@ import { db } from "../../config/firebaseConfig";
 
 const ProductContext = createContext();
 
-export function ProductProvider({children}) {
+export function ProductProvider({ children }) {
   const [plants, setPlants] = useState([]);
   const [vases, setVases] = useState([]);
   const [other, setOther] = useState([]);
 
   useEffect(() => {
-    const plantsCollectionRef = collection(db,  "plants");
-    const vasesCollectionRef = collection(db,  "vases");
-    const otherCollectionRef = collection(db,  "other_products");
+    const plantsCollectionRef = collection(db, "plants");
+    const vasesCollectionRef = collection(db, "vases");
+    const otherCollectionRef = collection(db, "other_products");
 
-    const plantListenerCleanup = onSnapshot(plantsCollectionRef,  (snapshot) => {
-      setPlants(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
+    const plantListenerCleanup = onSnapshot(plantsCollectionRef, (snapshot) => {
+      setPlants(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     })
 
     const vaseListenerCleanup = onSnapshot(vasesCollectionRef, (snapshot) => {
-      setVases(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
+      setVases(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
     })
 
     const otherProductsListenerCleanup = onSnapshot(otherCollectionRef, (snapshot) => {
-      setOther(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
+      setOther(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
     })
-  
+
     return () => {
       plantListenerCleanup();
       vaseListenerCleanup();
       otherProductsListenerCleanup();
     }
   }, [])
-  
+
   const valeu = {
     plants,
     vases,
@@ -43,7 +43,7 @@ export function ProductProvider({children}) {
   }
 
   return (
-    <ProductContext.Provider  value={valeu}>
+    <ProductContext.Provider value={valeu}>
       {children}
     </ProductContext.Provider>
   )
