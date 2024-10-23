@@ -15,7 +15,7 @@ export default function ManageProducts() {
   }, [plants])
 
   return (
-    <div className='h-screen p-2 bg-secondaryBackground flex flex-col overflow-y-auto md:items-center relative'>
+    <div className='h-screen p-2 bg-secondaryBackground flex flex-col items-center overflow-y-auto relative'>
       <Background />
       <Title>Seus Produtos</Title>
 

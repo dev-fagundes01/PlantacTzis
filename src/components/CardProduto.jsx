@@ -78,7 +78,7 @@ export default function Card({ produto, btn, admin, cursoGrab }) {
       )}
 
       <h3 className="h3-c">{produto.name}</h3>
-      <p className="p-c mb-2">Preço: R$ {produto.price},00</p>
+      <p className="p-c">Preço: R$ {produto.price},00</p>
 
       {btn &&
         <button type="button">
@@ -92,18 +92,18 @@ export default function Card({ produto, btn, admin, cursoGrab }) {
       }
       {admin &&
         <div>
-          <button className='mr-2' type="button"><Trash2 onClick={() => removeProduct(produto)} /></button>
-          <button type="button" onClick={() => confirmUpdate(produto)}><FilePenLine /></button>
+          <button type="button" onClick={() => removeProduct(produto)}><Trash2 className='h-3' /></button>
+          <button type="button" onClick={() => confirmUpdate(produto)}><FilePenLine className='h-3' /></button>
         </div>
       }
       {divUpdate && (
-        <div className='h-screen w-11/12 fixed top-0 right-0 flex justify-center items-center'>
+        <div className='h-screen w-full fixed top-0 right-0 flex justify-center items-center'>
           <div className='p-4 rounded-lg bg-primaryBackground flex flex-col'>
             <h2 className='h2-c'>Verificar Dados do Produto</h2>
-            <input className='input-c' type="text" value={produtoData.name || ""} onChange={(e) => setProdutoData({ ...produtoData, name: e.target.value })} />
-            <input className='input-c' type="number" value={produtoData.price || ""} onChange={(e) => setProdutoData({ ...produtoData, price: e.target.value })} />
+            <input className='input-c !w-44' type="text" value={produtoData.name || ""} onChange={(e) => setProdutoData({ ...produtoData, name: e.target.value })} />
+            <input className='input-c !w-44' type="number" value={produtoData.price || ""} onChange={(e) => setProdutoData({ ...produtoData, price: e.target.value })} />
             <select
-              className='input-c'
+              className='input-c !w-44'
               value={produtoData.category}
               required
               onChange={(e) => setCategory(e.target.value)}
@@ -113,7 +113,7 @@ export default function Card({ produto, btn, admin, cursoGrab }) {
               <option value="vases">Vasos</option>
               <option value="other_products">Outros Produtos</option>
             </select>
-            <input className='input-c' type="file" accept="image/" onChange={(e) => setProdutoData({ ...produtoData, image: e.target.files[0] })} />
+            <input className='input-c !w-44' type="file" accept="image/" onChange={(e) => setProdutoData({ ...produtoData, image: e.target.files[0] })} />
 
             <div className='flex gap-2 justify-center'>
               <button className='btn-third mt-1 mx-0  px-1 py-0 text-xs md:text-sm md:leading-4' type="button" id="confirm-btn" onClick={() => updateProduct(produtoData)}>
