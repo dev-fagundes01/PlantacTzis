@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom'
 import { auth, db } from '../../config/firebaseConfig'
 import OpenEye from '../assets/eye.png'
 import CloseEye from '../assets/eye_121.png'
-import Google from '../assets/google-icon.png'
+// import Google from '../assets/google-icon.png'
 import Loading from '../assets/loading.gif'
 
-export default function Login({ showLogin }) {
+export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -73,7 +73,7 @@ export default function Login({ showLogin }) {
         </div>
 
         <button className="btn-primary mt-6 text-lg" type="submit">Entrar</button>
-        <p className="p-c my-4 text-secondaryForeground">Ou entre com</p>
+        {/* <p className="p-c my-4 text-secondaryForeground">Ou entre com</p> */}
         {/* <img className='rounded-full' src={Google} alt="Autenticação pelo Google" /> */}
       </form>
       {error && <p className="p-c my-4 text-red-500">{error}</p>}
