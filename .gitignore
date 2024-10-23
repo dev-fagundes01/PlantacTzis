@@ -1,7 +1,6 @@
 node_modules
-config
+.env
 dist
-*.local
 hosting.ZGlzdA.cache
 ui-debug.log
 vsce-debug.log
