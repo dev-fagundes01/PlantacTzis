@@ -5,7 +5,7 @@
 @layer base {
   :root {
     --primary-background: #FFFFFF;
-    --secondary-background: #16A34A;
+    --secondary-background: #00BF63;
     --third-background: #166534;
 
     --primary-foreground: #166534;
@@ -14,6 +14,12 @@
 
     --accent: #F2F5F9;
     --accent-foreground: #1C0B02;
+
+    --disabled: #B3B3B3;
+    --disabled-foreground: #292727;
+
+    --blocked: #FF6666;
+    --blocked-foreground: #660000;
 
     --destructive: #FF0000;
     --destructive-foreground: #F9FAFC;

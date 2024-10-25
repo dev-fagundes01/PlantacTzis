@@ -12,7 +12,7 @@ export default {
 		extend: {
 			width: {
 				"36.": "36rem",
-				"28.": "28rem"
+				"28.": "28rem",
 			},
 			height: {
 				"78.": "78vh",
@@ -34,10 +34,14 @@ export default {
 				primaryForeground: "var(--primary-foreground)",
 				secondaryForeground: "var(--secondary-foreground)",
 				thirdForeground: "var(--third-foreground)",
-				primary: "var(--primary)",
-				secondary: "var(--secondary)",
-				destructive: "var(--destructive)",
 				accent: "var(--accent)",
+				accentForeground: "var(--accent-foreground)",
+				disabled: "var(--disabled)",
+				disabledForeground: "var(--disabled-foreground)",
+				blocked: "var(--blocked)",
+				blockedForeground: "var(--blocked-foreground)",
+				destructive: "var(--destructive)",
+				destructiveForeground: "var(--destructive-foreground)",
 			},
 			keyframes: {
 				"accordion-down": {

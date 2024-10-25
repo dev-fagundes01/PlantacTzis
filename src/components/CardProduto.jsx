@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { db, storage } from "../../config/firebaseConfig";
 import cn from '../lib/utuls'
 
-export default function Card({ produto, btn, admin, cursoGrab }) {
+export default function Card({ produto, btn, admin, store }) {
   const [divUpdate, setDivUpdate] = useState(false)
   const [produtoData, setProdutoData] = useState({})
   const numeroLoja = "5581991943001"
@@ -72,16 +72,16 @@ export default function Card({ produto, btn, admin, cursoGrab }) {
   }
 
   return (
-    <div className={cn('w-fit flex flex-col items-center', cursoGrab ? 'cursor-grab' : '')}>
+    <div className={cn('w-fit md:mx-2 flex flex-col items-center', admin && 'relative', store && 'cursor-grab')}>
       {produto?.image ? (
         <img className="img-c" src={produto.image} alt={produto.name} />) : (<p>Imagem não disponível</p>
       )}
 
       <h3 className="h3-c">{produto.name}</h3>
-      <p className="p-c">Preço: R$ {produto.price},00</p>
+      <p className={cn('p-c', store && 'mb-2')}>Preço: R$ {produto.price},00</p>
 
       {btn &&
-        <button type="button">
+        <button className={cn(!produto.visibility && 'hidden')} type="button">
           <a
             href={gerarLinkWhatsApp(produto)}
             target="_blank"
@@ -90,22 +90,37 @@ export default function Card({ produto, btn, admin, cursoGrab }) {
           >Comprar</a>
         </button>
       }
+
+      {!produto.visibility && (
+        <div className='h-full flex items-end absolute'>
+          <div className='h-full w-full opacity-55 rounded-sm bg-disabled absolute' />
+          <p className='mb-[1.2rem] text-[0.6rem] text-disabledForeground z-10 text-center md:mb-4 md:text-xl'>Indisponível no momento</p>
+        </div>
+      )}
+
       {admin &&
-        <div>
+        <div className="z-10">
           <button type="button" onClick={() => removeProduct(produto)}><Trash2 className='h-3' /></button>
           <button type="button" onClick={() => confirmUpdate(produto)}><FilePenLine className='h-3' /></button>
         </div>
       }
+
       {divUpdate && (
-        <div className='h-screen w-full fixed top-0 right-0 flex justify-center items-center'>
+        <div className='h-screen w-full z-20 fixed top-0 right-0 flex justify-center items-center'>
           <div className='p-4 rounded-lg bg-primaryBackground flex flex-col'>
             <h2 className='h2-c'>Verificar Dados do Produto</h2>
-            <input className='input-c !w-44' type="text" value={produtoData.name || ""} onChange={(e) => setProdutoData({ ...produtoData, name: e.target.value })} />
-            <input className='input-c !w-44' type="number" value={produtoData.price || ""} onChange={(e) => setProdutoData({ ...produtoData, price: e.target.value })} />
+
+            <input className='input-c !w-44 md:!w-auto' type="text" value={produtoData.name || ""} onChange={(e) => setProdutoData({ ...produtoData, name: e.target.value })} />
+            <input className='input-c !w-44 md:!w-auto' type="number" value={produtoData.price || ""} onChange={(e) => setProdutoData({ ...produtoData, price: e.target.value })} />
+
+            <div className="relative">
+              <label className='label-c !text-black' htmlFor="visibility">Visibilidade</label>
+              <input className="ml-2 absolute bottom-1" type="checkbox" name="visibility" checked={produtoData.visibility} onChange={(e) => setProdutoData({ ...produtoData, visibility: !produtoData.visibility })} />
+            </div>
+
             <select
-              className='input-c !w-44'
+              className='input-c !w-44 md:!w-auto'
               value={produtoData.category}
-              required
               onChange={(e) => setCategory(e.target.value)}
             >
               <option value="">Selecione a categoria</option>
@@ -113,7 +128,8 @@ export default function Card({ produto, btn, admin, cursoGrab }) {
               <option value="vases">Vasos</option>
               <option value="other_products">Outros Produtos</option>
             </select>
-            <input className='input-c !w-44' type="file" accept="image/" onChange={(e) => setProdutoData({ ...produtoData, image: e.target.files[0] })} />
+
+            <input className='input-c !w-44 md:!w-auto' type="file" accept="image/" onChange={(e) => setProdutoData({ ...produtoData, image: e.target.files[0] })} />
 
             <div className='flex gap-2 justify-center'>
               <button className='btn-third mt-1 mx-0  px-1 py-0 text-xs md:text-sm md:leading-4' type="button" id="confirm-btn" onClick={() => updateProduct(produtoData)}>
@@ -126,6 +142,7 @@ export default function Card({ produto, btn, admin, cursoGrab }) {
           </div>
         </div>
       )}
+
     </div>
   )
 }

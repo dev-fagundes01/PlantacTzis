@@ -88,7 +88,8 @@ function RegisterProduct() {
         name,
         price,
         category,
-        image: imageURL
+        image: imageURL,
+        visibility: true,
       })
 
       setRegisteredProduct(product);
