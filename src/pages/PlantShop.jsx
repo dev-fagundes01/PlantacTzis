@@ -16,8 +16,6 @@ export default function PlantShop() {
       <div className='min-h-96 w-11/12 mx-auto flex justify-center'>
         <img src={BannerDF} alt="" />
       </div>
-      {/* <section className='flex justify-center'>
-      </section> */}
 
       <main className="container mx-auto p-4 md:p-8">
         <Slider title={'Nossas Plantas'} info={plants} />
@@ -63,6 +61,16 @@ export default function PlantShop() {
           </p>
         </div>
       </section>
+
+      <div className='w-8/12 mx-auto my-16 flex flex-col items-center'>
+        <h2 className='h2-c text-3xl'>Sobre Nós</h2>
+        <h3 className='h3-c'>Bem-vindo à nossa loja de plantas! 🌿</h3>
+        <div>
+          <p>Aqui, na <b>DF-Plantas</b>, acreditamos que cada planta conta uma história única, trazendo mais vida, cor e frescor para o seu ambiente. Nós nos dedicamos a oferecer uma grande variedade de plantas, desde as mais clássicas até as espécies mais exóticas, todas cuidadas com o máximo de atenção para garantir que cheguem até você saudáveis e vibrantes.</p>
+          <p className='p-c my-4'>Se você está em busca de um toque verde para a sua casa, escritório, ou presente perfeito para alguém especial, temos exatamente o que você precisa. Nossa equipe está sempre pronta para ajudar, seja para dar dicas sobre cuidados, sugestões de combinações ou até ajudar a encontrar aquela planta que vai transformar seu espaço.</p>
+          <p>Venha nos visitar e descubra como o poder das plantas pode mudar o seu dia a dia!</p>
+        </div>
+      </div>
 
       <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7894.496372492319!2d-35.24118454950209!3d-8.377230898066777!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1727961728152!5m2!1spt-BR!2sbr" className="iframe" style={{ border: "0", marginInline: "auto", padding: "10px" }} allowFullScreen={true} loading="lazy" title="loja df-plantas" referrerPolicy="no-referrer-when-downgrade">DF-Plantas</iframe>
 
