@@ -2,6 +2,7 @@ import Slider from '../components/Slider';
 
 import { CreditCard, Flower, Leaf, Mail, Phone, Truck } from 'lucide-react';
 import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import BannerDF from '../assets/banner-df.png'
 import Header from '../components/Header';
 import { useProduct } from '../context/ProductContext';
 
@@ -12,11 +13,18 @@ export default function PlantShop() {
     <div className="min-h-screen bg-primaryBackground overflow-hidden">
       <Header />
 
+      <div className='min-h-96 w-11/12 mx-auto flex justify-center'>
+        <img src={BannerDF} alt="" />
+      </div>
+      {/* <section className='flex justify-center'>
+      </section> */}
+
       <main className="container mx-auto p-4 md:p-8">
         <Slider title={'Nossas Plantas'} info={plants} />
         <Slider title={'Nossos Vasos'} info={vases} />
         <Slider title={'Outros Produtos'} info={other} />
       </main>
+
       <section className='h-32 mx-auto flex flex-wrap justify-center gap-2 md:gap-8 md:w-max'>
         <div>
           <h3-c className='h3-c md:text-lg'>
