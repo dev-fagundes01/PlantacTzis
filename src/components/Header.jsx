@@ -12,32 +12,32 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 import { useState } from 'react'
 
-const products = [
-  {
-    name: 'Artificiais',
-    description: 'Plantas artificiais de alta qualidade que trazem beleza sem a necessidade de cuidados constantes.',
-    href: '#'
-  },
-  {
-    name: 'Mudas',
-    description: 'Variedade de mudas frescas e saudáveis, prontas para plantar e cultivar em seu jardim.',
-    href: '#'
-  }
-];
+// const products = [
+//   {
+//     name: 'Artificiais',
+//     description: 'Plantas artificiais de alta qualidade que trazem beleza sem a necessidade de cuidados constantes.',
+//     href: '#'
+//   },
+//   {
+//     name: 'Mudas',
+//     description: 'Variedade de mudas frescas e saudáveis, prontas para plantar e cultivar em seu jardim.',
+//     href: '#'
+//   }
+// ];
 
-const trimmedProducts =  products.map(product => ({
-  ...product,
-  name: product.name.trim(),
-  description: product.description.trim()  
-}))
+// const trimmedProducts = products.map(product => ({
+//   ...product,
+//   name: product.name.trim(),
+//   description: product.description.trim()
+// }))
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="px-4 bg-secondaryBackground flex items-center justify-between">
+    <header className="w-full px-2 z-20 bg-secondaryBackground fixed flex items-center justify-between md:px-4">
       <h1 className="text-white text-base font-bold md:text-2xl">DF-Plantas</h1>
-      <nav aria-label="Global" className="p-1 max-w-7xl text-end relative">
+      <nav aria-label="Global" className="max-w-7xl text-end relative">
         <button
           type="button"
           className="icon text-white md:hidden"
@@ -47,11 +47,12 @@ export default function Header() {
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
         <PopoverGroup className={`${isMenuOpen ? 'block' : 'hidden'} md:flex md:gap-x-4 items-baseline`}>
-          <a href="#l" className="link mb-4">Início</a>
-          <Popover className="absolute bottom-[2rem] right-[-0.8rem] md:static">
+          <a href="#home" className='link'>Início</a>
+          <a href="#product" className='link'>Produtos</a>
+
+          {/* <Popover className="absolute bottom-[1.75rem] right-[-0.8rem] md:static">
             <PopoverButton className="mr-4 flex items-center text-xs font-semibold leading-6 text-secondaryForeground relative md:mr-0">
-              Produtos
-              <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400 absolute right-[-15px] top-[3px] md:static" />
+              <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-thirdForeground absolute right-[-15px] top-[3px] md:static" />
             </PopoverButton>
 
             <PopoverPanel
@@ -74,9 +75,10 @@ export default function Header() {
                 ))}
               </div>
             </PopoverPanel>
-          </Popover>
-          <a href="#l" className="link">Sobre</a>
-          <a href="#l" className="link">Contato</a>
+          </Popover> */}
+
+          <a href="#about" className='link'>Sobre</a>
+          <a href="#contact" className='link'>Contato</a>
         </PopoverGroup>
       </nav>
     </header>
