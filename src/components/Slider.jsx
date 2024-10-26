@@ -15,7 +15,7 @@ export default function Slider({ info, title }) {
         onSlideChange={() => console.log('slide change')}
       >
         {info.map((produto) => (
-          <SwiperSlide key={produto.id || produto.image} className='md:!w-52 md:h-80'>
+          <SwiperSlide className='!w-[4.5rem] md:!w-56' key={produto.id || produto.image}>
             <Card produto={produto} btn={true} store={true} />
           </SwiperSlide>
         ))}

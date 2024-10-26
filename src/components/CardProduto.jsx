@@ -72,21 +72,20 @@ export default function Card({ produto, btn, admin, store }) {
   }
 
   return (
-    <div className={cn('w-fit md:mx-2 flex flex-col items-center', admin && 'relative', store && 'cursor-grab')}>
+    <div className={cn('w-fit h-28 md:mx-2 flex flex-col items-center md:h-[18.5rem]', admin && 'relative', store && 'cursor-grab')}>
       {produto?.image ? (
         <img className="img-c" src={produto.image} alt={produto.name} />) : (<p>Imagem não disponível</p>
       )}
 
       <h3 className="h3-c">{produto.name}</h3>
-      <p className={cn('p-c', store && 'mb-2')}>Preço: R$ {produto.price},00</p>
+      <p className={cn('p-c', store && 'md:mb-2')}>Preço: R$ {produto.price},00</p>
 
       {btn &&
-        <button className={cn(!produto.visibility && 'hidden')} type="button">
+        <button className={cn('btn-secondary', !produto.visibility && 'hidden')} type="button">
           <a
             href={gerarLinkWhatsApp(produto)}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-secondary"
           >Comprar</a>
         </button>
       }
@@ -94,7 +93,7 @@ export default function Card({ produto, btn, admin, store }) {
       {!produto.visibility && (
         <div className='h-full flex items-end absolute'>
           <div className='h-full w-full opacity-55 rounded-sm bg-disabled absolute' />
-          <p className='mb-[1.2rem] text-[0.6rem] text-disabledForeground z-10 text-center md:mb-4 md:text-xl'>Indisponível no momento</p>
+          <p className='text-[0.6rem] text-disabledForeground z-10 text-center md:text-[1.25rem]'>Indisponível no momento</p>
         </div>
       )}
 
