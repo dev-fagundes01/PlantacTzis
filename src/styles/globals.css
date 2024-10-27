@@ -78,7 +78,7 @@
   }
 
   .link {
-    @apply text-xs block md:inline-block text-white hover:text-green-200
+    @apply text-zx block text-white hover:text-green-200 md:text-xl md:inline-block
   }
 
   .img-c {
