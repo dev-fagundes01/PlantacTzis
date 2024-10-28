@@ -27,7 +27,7 @@ export default function ManageProducts() {
 
       <div className="max-w-[80vw] mt-2 flex flex-wrap justify-center gap-2">
         {products.map((product) => (
-          <Card key={product.id} produto={product} admin={true} />
+          <Card key={product.id} product={product} admin={true} />
         ))}
       </div>
     </div>

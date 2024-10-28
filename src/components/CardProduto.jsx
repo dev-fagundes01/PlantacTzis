@@ -5,25 +5,25 @@ import { useState } from 'react'
 import { db, storage } from "../../config/firebaseConfig";
 import cn from '../lib/utuls'
 
-export default function Card({ produto, btn, admin, store }) {
+export default function Card({ product, admin, store }) {
   const [divUpdate, setDivUpdate] = useState(false)
-  const [produtoData, setProdutoData] = useState({})
+  const [productData, setProductData] = useState({})
   const numeroLoja = "5581991943001"
 
-  const gerarLinkWhatsApp = (produto) => {
-    const mensagem = `Olá, gostaria de comprar o produto: ${produto.name}, Preço: ${produto.price}`
+  const gerarLinkWhatsApp = (product) => {
+    const mensagem = `Olá, gostaria de comprar o produto: ${product?.name}, Preço: ${product?.price}`
     const url = `https://wa.me/${numeroLoja}?text=${encodeURIComponent(mensagem)}`
     return url
   }
 
-  function confirmUpdate(produto) {
-    setProdutoData(produto)
+  function confirmUpdate(product) {
+    setProductData(product)
     setDivUpdate(true)
   }
 
   async function updateProduct(updatedData) {
     try {
-      let imgURL = produtoData.image
+      let imgURL = productData.image
 
       if (updatedData.image instanceof File) {
         imgURL = await uploadImage(updatedData)
@@ -72,54 +72,54 @@ export default function Card({ produto, btn, admin, store }) {
   }
 
   return (
-    <div className={cn('w-fit h-28 md:mx-2 flex flex-col items-center md:h-[18.5rem]', admin && 'relative', store && 'cursor-grab')}>
-      {produto?.image ? (
-        <img className="img-c" src={produto.image} alt={produto.name} />) : (<p>Imagem não disponível</p>
+    <div className={cn('w-max flex flex-col items-center justify-center relative md:mx-2', admin && 'relative', store && 'cursor-grab')}>
+      {product?.image ? (
+        <img className="img-c" src={product.image} alt={product?.name} />) : (<p>Imagem não disponível</p>
       )}
 
-      <h3 className="h3-c">{produto.name}</h3>
-      <p className={cn('p-c', store && 'md:mb-2')}>Preço: R$ {produto.price},00</p>
+      <h3 className="h3-c">{product?.name}</h3>
+      <p className='p-c'>Preço: R$ {product?.price},00</p>
+      <p className={cn('text-[0.3rem] text-disabledForeground z-10 text-center hidden md:mx-auto md:text-[0.96rem]', !product.visibility && 'block', store && 'md:mb-2')}>Indisponível no momento</p>
 
-      {btn &&
-        <button className={cn('btn-secondary', !produto.visibility && 'hidden')} type="button">
+      {store &&
+        <button className={cn('btn-secondary', !product.visibility && 'hidden')} type="button">
           <a
-            href={gerarLinkWhatsApp(produto)}
+            href={gerarLinkWhatsApp(product)}
             target="_blank"
             rel="noopener noreferrer"
           >Comprar</a>
         </button>
       }
 
-      {!produto.visibility && (
-        <div className='h-full flex items-end absolute'>
-          <div className='h-full w-full opacity-55 rounded-sm bg-disabled absolute' />
-          <p className='text-[0.6rem] text-disabledForeground z-10 text-center md:text-[1.25rem]'>Indisponível no momento</p>
-        </div>
-      )}
-
       {admin &&
         <div className="z-10">
-          <button type="button" onClick={() => removeProduct(produto)}><Trash2 className='h-3' /></button>
-          <button type="button" onClick={() => confirmUpdate(produto)}><FilePenLine className='h-3' /></button>
+          <button type="button" onClick={() => removeProduct(product)}><Trash2 className='h-3' /></button>
+          <button type="button" onClick={() => confirmUpdate(product)}><FilePenLine className='h-3' /></button>
         </div>
       }
+
+      {!product?.visibility && (
+        <div className='w-full h-full absolute'>
+          <div className='w-full h-full opacity-55 rounded-sm bg-disabled absolute' />
+        </div>
+      )}
 
       {divUpdate && (
         <div className='h-screen w-full z-20 fixed top-0 right-0 flex justify-center items-center'>
           <div className='p-4 rounded-lg bg-primaryBackground flex flex-col'>
             <h2 className='h2-c'>Verificar Dados do Produto</h2>
 
-            <input className='input-c !w-44 md:!w-auto' type="text" value={produtoData.name || ""} onChange={(e) => setProdutoData({ ...produtoData, name: e.target.value })} />
-            <input className='input-c !w-44 md:!w-auto' type="number" value={produtoData.price || ""} onChange={(e) => setProdutoData({ ...produtoData, price: e.target.value })} />
+            <input className='input-c !w-44 md:!w-auto' type="text" value={productData.name || ""} onChange={(e) => setProductData({ ...productData, name: e.target.value })} />
+            <input className='input-c !w-44 md:!w-auto' type="number" value={productData.price || ""} onChange={(e) => setProductData({ ...productData, price: e.target.value })} />
 
             <div className="relative">
               <label className='label-c !text-black' htmlFor="visibility">Visibilidade</label>
-              <input className="ml-2 absolute bottom-1" type="checkbox" name="visibility" checked={produtoData.visibility} onChange={(e) => setProdutoData({ ...produtoData, visibility: !produtoData.visibility })} />
+              <input className="ml-2 absolute bottom-1" type="checkbox" name="visibility" checked={productData.visibility} onChange={(e) => setProductData({ ...productData, visibility: !productData.visibility })} />
             </div>
 
             <select
               className='input-c !w-44 md:!w-auto'
-              value={produtoData.category}
+              value={productData.category}
               onChange={(e) => setCategory(e.target.value)}
             >
               <option value="">Selecione a categoria</option>
@@ -128,10 +128,10 @@ export default function Card({ produto, btn, admin, store }) {
               <option value="other_products">Outros Produtos</option>
             </select>
 
-            <input className='input-c !w-44 md:!w-auto' type="file" accept="image/" onChange={(e) => setProdutoData({ ...produtoData, image: e.target.files[0] })} />
+            <input className='input-c !w-44 md:!w-auto' type="file" accept="image/" onChange={(e) => setProductData({ ...productData, image: e.target.files[0] })} />
 
             <div className='flex gap-2 justify-center'>
-              <button className='btn-third mt-1 mx-0  px-1 py-0 text-xs md:text-sm md:leading-4' type="button" id="confirm-btn" onClick={() => updateProduct(produtoData)}>
+              <button className='btn-third mt-1 mx-0  px-1 py-0 text-xs md:text-sm md:leading-4' type="button" id="confirm-btn" onClick={() => updateProduct(productData)}>
                 Confirmar
               </button>
               <button className='btn-third mt-1 mx-0 px-1 py-0 text-xs md:text-sm md:leading-4' type="button" id="cancel-btn" onClick={() => setDivUpdate(false)}>

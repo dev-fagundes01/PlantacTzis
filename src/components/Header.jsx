@@ -8,7 +8,7 @@ import {
   PopoverGroup,
   PopoverPanel,
 } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+// import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 import { useState } from 'react'
 
