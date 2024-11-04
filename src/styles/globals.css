@@ -70,7 +70,7 @@
   }
 
   .p-c {
-    @apply text-zx md:text-sm
+    @apply text-zx md:text-base
   }
 
   .p-c-secondary {
@@ -136,6 +136,6 @@
 
 @layer utilities {
   .flex-utilities {
-    @apply flex flex-col items-center justify-center
+    @apply flex items-center justify-center
   }
 }
