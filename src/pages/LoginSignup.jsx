@@ -8,14 +8,14 @@ import CloseEye from '../assets/eye_121.png'
 // import Google from '../assets/google-icon.png'
 import Loading from '../assets/loading.gif'
 
-export default function Login() {
+export default function LoginSignup() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const [loading, setLoading] = useState(false)
   const [isLogin, setIsLogin] = useState(false)
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   const navigate = useNavigate()
 
@@ -31,13 +31,21 @@ export default function Login() {
     setAccountDetails(prev => ({ ...prev, [name]: value }))
   }
 
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible)
+  }
+
+  const keyUp = () => {
+    togglePasswordVisibility()
+  }
+
   const addAccount = async (e) => {
     e.preventDefault()
     setLoading(true)
     setError('')
     setSuccess('')
 
-    if (accountDetails.password === accountDetails.confirmPassword) {
+    if (accountDetails.password !== accountDetails.confirmPassword) {
       setError('As senhas não conferem')
       setLoading(false)
       return
@@ -49,7 +57,7 @@ export default function Login() {
       await setDoc(doc(db, "users", userCredential.user.uid), {
         name: accountDetails.name,
         email: accountDetails.email,
-        role: 'user',
+        isAdmin: true,
         createAt: new Date()
       })
 
@@ -91,14 +99,6 @@ export default function Login() {
       setError("Email ou senha incorretos")
       console.log("Erro no login", error);
     }
-  }
-
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible(!isPasswordVisible)
-  }
-
-  const keyUp = () => {
-    togglePasswordVisibility()
   }
 
   return (
@@ -162,8 +162,8 @@ export default function Login() {
             </div>
 
             <div className="flex flex-col relative" id="password">
-              <label className='label-c' htmlFor="password">Senha:</label>
-              <input className='input-c' placeholder="fs12345" type={isPasswordVisible ? "string" : "password"} name="password" required minLength={6} value={accountDetails.confirmPassword} onChange={handleChange} />
+              <label className='label-c' htmlFor="confirmPassword">Confirme sua Senha:</label>
+              <input className='input-c' placeholder="fs12345" type={isPasswordVisible ? "string" : "password"} name="confirmPassword" required minLength={6} value={accountDetails.confirmPassword} onChange={handleChange} />
               <button type="button" onKeyUp={keyUp} onKeyDown={(e) => e.preventDefault()} onClick={togglePasswordVisibility}>
                 <img className='h-8 absolute right-[0.5rem] bottom-[-1px] cursor-pointer' src={isPasswordVisible ? OpenEye : CloseEye} alt="Imagem para mudar visibilidade  da senha" />
               </button>

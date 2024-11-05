@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoute'
 import { ProductProvider } from './context/ProductContext'
-import Login from './pages/Login'
+import Login from './pages/LoginSignup'
 import ManageProducts from './pages/ManageProducts'
 import PlantShop from './pages/PlantShop'
 import RegisterProduct from './pages/RegisterProduct'
