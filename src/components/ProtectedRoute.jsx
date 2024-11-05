@@ -14,15 +14,14 @@ export default function ProtectedRoute({ children }) {
       if (user) {
         try {
           const userDoc = await getDoc(doc(db, 'users', user.uid));
-          console.log(userDoc);
-          return setAuthState({ 
+          return setAuthState({
             isLoading: false,
             isAdmin: userDoc.exists() && userDoc.data().isAdmin,
             isAuthenticated: true
-          });          
+          });
         } catch (error) {
           console.error('Erro ao buscar o documento do  usuário:', error);
-          setAuthState({isLoading: false, isAdmin: false, isAuthenticated: false});
+          setAuthState({ isLoading: false, isAdmin: false, isAuthenticated: false });
         }
       }
 
@@ -37,7 +36,7 @@ export default function ProtectedRoute({ children }) {
 
   if (!authState.isAuthenticated) return <Navigate to="/" replace={true} />;
 
-  if(!authState.isAdmin)  return <Navigate to="/" replace={true} />;
+  if (!authState.isAdmin) return <Navigate to="/" replace={true} />;
 
   return children
 }
