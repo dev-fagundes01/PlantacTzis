@@ -103,7 +103,7 @@ export default function LoginSignup() {
   }
 
   return (
-    <div className="h-screen flex-utilities flex-col">
+    <div className="h-screen flex-utilities">
       {isLogin ?
         <div className='p-6 rounded-lg bg-secondaryBackground'>
           <Title>Insira seus dados para entrar</Title>
@@ -141,7 +141,7 @@ export default function LoginSignup() {
         </div>
         :
         <div className='p-6 rounded-lg bg-secondaryBackground'>
-          <Title className='w-56 text-sm'>Cadastre seus Produtos com Segurança</Title>
+          <Title className='text-[.95rem]'>Cadastre seus Produtos com Segurança</Title>
 
           <form className="div-c w-min flex flex-col items-center relative" onSubmit={addAccount}>
             <div className="flex flex-col">
