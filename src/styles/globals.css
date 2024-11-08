@@ -78,7 +78,7 @@
   }
 
   .link {
-    @apply text-zx block text-white hover:text-green-200 md:text-xl md:inline-block
+    @apply text-xs block text-white hover:text-green-200 md:text-xl md:inline-block
   }
 
   .img-c {
@@ -118,7 +118,7 @@
   }
 
   .icon-secondary {
-    @apply w-2 h-2 md:w-6 md:h-6
+    @apply w-3 h-3 dm:mx-[0.10rem] md:w-6 md:h-6
   }
 
   .iframe {

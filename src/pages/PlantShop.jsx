@@ -77,7 +77,7 @@ export default function PlantShop() {
       <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7894.496372492319!2d-35.24118454950209!3d-8.377230898066777!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1727961728152!5m2!1spt-BR!2sbr" className="iframe" style={{ border: "0", marginInline: "auto", padding: "10px" }} allowFullScreen={true} loading="lazy" title="loja df-plantas" referrerPolicy="no-referrer-when-downgrade">DF-Plantas</iframe>
 
       <footer className="w-full py-8 bg-thirdBackground text-secondaryForeground" id='contact'>
-        <div className="container mx-auto flex gap-1 justify-between items-center text-center">
+        <div className="mx-auto flex gap-1 justify-center items-center text-center">
           <p className='p-c-secondary dm:w-28'>Todos os Direitos Reservados &copy; {new Date().getFullYear()} DF-Plantas</p>
           <div className='flex gap-1 md:gap-4'>
             <Mail className='icon-secondary' />

@@ -40,17 +40,16 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="w-full px-2 z-20 bg-secondaryBackground fixed flex items-center justify-between md:px-4">
+    <header className="w-full dm:pt-1 px-2 z-20 bg-secondaryBackground fixed flex md:items-center justify-between md:px-4">
       <h1 className="text-white text-base font-bold md:text-2xl">DF-Plantas</h1>
       <nav aria-label="Global" className="text-end">
         <PopoverGroup>
           <Popover>
-
             <PopoverButton className='text-white md:hidden'
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
-              {isMenuOpen ? <X size={15} /> : <Menu size={15} />}
+              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </PopoverButton>
 
             <PopoverPanel
@@ -65,7 +64,6 @@ export default function Header() {
                 </a>
               ))}
             </PopoverPanel>
-
           </Popover>
         </PopoverGroup>
 
