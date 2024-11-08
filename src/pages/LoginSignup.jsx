@@ -107,7 +107,7 @@ export default function LoginSignup() {
       {isLogin ?
         <div className='p-6 rounded-lg bg-secondaryBackground'>
           <Title>Insira seus dados para entrar</Title>
-          <h3 className='h3-c mt-2 dm:text-xs text-secondaryForeground'>Escolha uma opção</h3>
+          <h3 className='h3-c mt-2 justify-center dm:text-sm text-secondaryForeground'>Escolha uma opção</h3>
 
           <form className="div-c w-min flex flex-col items-center relative" onSubmit={handleLogin}>
             <div className="flex flex-col">

@@ -72,14 +72,14 @@ export default function Card({ product, admin, store }) {
   }
 
   return (
-    <div className={cn('w-max flex flex-col items-center justify-center relative md:mx-2', admin && 'relative', store && 'cursor-grab')}>
+    <div className={cn('w-full flex flex-col items-center justify-center relative md:mx-2', admin && 'relative', store && 'cursor-grab')}>
       {product?.image ? (
         <img className="img-c" src={product.image} alt={product?.name} />) : (<p>Imagem não disponível</p>
       )}
 
-      <h3 className="h3-c">{product?.name}</h3>
-      <p className='p-c'>Preço: R$ {product?.price},00</p>
-      <p className={cn('text-[0.3rem] text-disabledForeground z-10 text-center hidden md:mx-auto md:text-[0.96rem]', !product.visibility && 'block', store && 'md:mb-2')}>Indisponível no momento</p>
+      <h3 className="h3-c text-center">{product?.name}</h3>
+      <p className='p-c text-center'>Preço: R$ {product?.price},00</p>
+      <p className={cn('w-28 text-xs text-disabledForeground z-10 text-center hidden md:mx-auto md:text-[0.96rem]', !product.visibility && 'block', store && 'md:mb-2')}>Indisponível no momento</p>
 
       {store &&
         <button className={cn('btn-secondary', !product.visibility && 'hidden')} type="button">
