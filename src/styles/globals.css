@@ -66,7 +66,7 @@
   }
 
   .h3-c {
-    @apply  text-primaryForeground text-zx md:text-xl font-semibold flex items-center
+    @apply text-primaryForeground text-zx font-semibold flex justify-center items-center md:text-xl
   }
 
   .p-c {
@@ -86,7 +86,7 @@
   }
 
   .input-c {
-    @apply w-64 text-xs text-thirdForeground rounded-lg p-1 md:w-96 md:text-base
+    @apply w-52 text-xs text-thirdForeground rounded-lg p-1 md:w-96 md:text-base
   }
 
   .label-c {
@@ -94,7 +94,7 @@
   }
   
   .btn-primary {
-    @apply mx-16 mt-2 p-1 text-sm rounded-lg bg-primaryBackground md:text-2xl md:w-48 md:mx-24
+    @apply w-max mx-16 mt-2 p-1 text-sm rounded-lg bg-primaryBackground md:text-2xl md:w-48 md:mx-24
   }
   
   .btn-secondary {
