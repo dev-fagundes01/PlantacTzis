@@ -124,7 +124,7 @@ function RegisterProduct() {
         <label className='label-c' htmlFor="price">Preço:</label>
         <input className='input-c' placeholder="15" type="number" name="price" required value={price} onChange={(e) => setPrice(e.target.value)} />
 
-        {isLoading && <img className='h-20 w-20 mx-[9.5rem] absolute top-[3.5rem]' src={Loading} alt="Imagem de carregamento" />}
+        {isLoading && <img className='w-12 h-12 mx-20 top-[2.75rem] absolute md:h-20 md:w-20 md:mx-[9.5rem] md:top-[3.5rem]' src={Loading} alt="Imagem de carregamento" />}
 
         <label className='label-c' htmlFor="Category">Categoria:</label>
         <select
@@ -144,7 +144,7 @@ function RegisterProduct() {
         <input className='input-c cursor-pointer' type="file" name='Image' accept='image/' required onChange={(e) => setImage(e.target.files[0])} />
 
 
-        {!uploading ? '' : <progress className='progress-custom w-96' value={progress} max="100" />}
+        {!uploading ? '' : <progress className='progress-custom w-52 dm:h-2 md:w-96' value={progress} max="100" />}
         {registeredProduct &&
           <p className='p-c mb-0 text-center'>{registeredProduct.name} registrado com sucesso!</p>
         }
