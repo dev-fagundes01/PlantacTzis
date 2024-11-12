@@ -8,10 +8,19 @@ import cn from '../lib/utuls'
 export default function Card({ product, admin, store }) {
   const [divUpdate, setDivUpdate] = useState(false)
   const [productData, setProductData] = useState({})
+  const [amount, setAmount] = useState(1)
   const numeroLoja = "5581991943001"
 
+  const decrementeAmount = () => {
+    setAmount(prev => (prev > 1 ? prev - 1 : 1))
+  }
+
+  const incrementeAmount = () => {
+    setAmount(prev => prev + 1)
+  }
+
   const gerarLinkWhatsApp = (product) => {
-    const mensagem = `Olá, gostaria de comprar o produto: ${product?.name}, Preço: ${product?.price}`
+    const mensagem = `Olá, gostaria de comprar o produto: ${product?.name}, preço: ${product?.price},00, quantidade: ${amount}`
     const url = `https://wa.me/${numeroLoja}?text=${encodeURIComponent(mensagem)}`
     return url
   }
@@ -72,7 +81,7 @@ export default function Card({ product, admin, store }) {
   }
 
   return (
-    <div className={cn('w-full flex flex-col items-center justify-center relative md:mx-2', admin && 'relative', store && 'cursor-grab')}>
+    <div className={cn('w-max flex flex-col items-center justify-center relative md:mx-2', admin && 'relative', store && 'w-full cursor-grab')}>
       {product?.image ? (
         <img className="img-c" src={product.image} alt={product?.name} />) : (<p>Imagem não disponível</p>
       )}
@@ -80,6 +89,14 @@ export default function Card({ product, admin, store }) {
       <h3 className="h3-c text-center">{product?.name}</h3>
       <p className='p-c text-center'>Preço: R$ {product?.price},00</p>
       <p className={cn('w-28 text-xs text-disabledForeground z-10 text-center hidden md:mx-auto md:text-[0.96rem]', !product.visibility && 'block', store && 'md:mb-2')}>Indisponível no momento</p>
+
+      {product.visibility &&
+        <div className='flex gap-x-1 items-center md:gap-x-2'>
+          <button className='btn-third w-3 h-3 mx-0 pb-[0.4rem] flex justify-center items-center md:w-5 md:h-5' onClick={decrementeAmount}>-</button>
+          <p className='p-c'>{amount}</p>
+          <button className='btn-third w-3 h-3 mx-0 pb-[0.4rem] flex justify-center items-center md:w-5 md:h-5' onClick={incrementeAmount}>+</button>
+        </div>
+      }
 
       {store &&
         <button className={cn('btn-secondary', !product.visibility && 'hidden')} type="button">
