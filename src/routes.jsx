@@ -5,6 +5,7 @@ import Login from './pages/LoginSignup'
 import ManageProducts from './pages/ManageProducts'
 import PlantShop from './pages/PlantShop'
 import RegisterProduct from './pages/RegisterProduct'
+import { CartProvider } from './context/CartContext'
 
 const router = createBrowserRouter([
   {
@@ -14,22 +15,26 @@ const router = createBrowserRouter([
   {
     path: '/cadastrar-produtos',
     element:
-      < ProtectedRoute >
+      <ProtectedRoute>
         <RegisterProduct />
-      </ ProtectedRoute >
+      </ProtectedRoute>
   },
   {
     path: '/gerenciar-produtos',
     element:
-      <ProductProvider>
-        <ManageProducts />
-      </ProductProvider>
+      <ProtectedRoute>
+        <ProductProvider>
+          <ManageProducts />
+        </ProductProvider>
+      </ProtectedRoute>
   },
   {
     path: '/loja',
     element:
       <ProductProvider>
-        <PlantShop />
+        <CartProvider>
+          <PlantShop />
+        </CartProvider>
       </ProductProvider>
   }
 ])

@@ -1,21 +1,23 @@
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { FilePenLine, Trash2 } from 'lucide-react'
+import { FilePenLine, Trash2, CreditCard, ShoppingCart } from 'lucide-react'
 import { useState } from 'react'
 import { db, storage } from "../../config/firebaseConfig";
-import cn from '../lib/utuls'
+import { useCart } from '../context/CartContext';
+import cn from '../lib/utils'
 
 export default function Card({ product, admin, store }) {
   const [divUpdate, setDivUpdate] = useState(false)
   const [productData, setProductData] = useState({})
   const [amount, setAmount] = useState(1)
+  const { cart, setCart } = useCart()
   const numeroLoja = "5581991943001"
 
-  const decrementeAmount = () => {
+  const decrementeCart = () => {
     setAmount(prev => (prev > 1 ? prev - 1 : 1))
   }
 
-  const incrementeAmount = () => {
+  const incrementeCart = () => {
     setAmount(prev => prev + 1)
   }
 
@@ -92,20 +94,20 @@ export default function Card({ product, admin, store }) {
 
       {product.visibility &&
         <div className='flex gap-x-1 items-center md:gap-x-2'>
-          <button className='btn-third w-3 h-3 mx-0 pb-[0.4rem] flex justify-center items-center md:w-5 md:h-5' onClick={decrementeAmount}>-</button>
+          <button className='btn-third w-3 h-3 mx-0 pb-[0.4rem] flex justify-center items-center md:w-5 md:h-5' onClick={decrementeCart}>-</button>
           <p className='p-c'>{amount}</p>
-          <button className='btn-third w-3 h-3 mx-0 pb-[0.4rem] flex justify-center items-center md:w-5 md:h-5' onClick={incrementeAmount}>+</button>
+          <button className='btn-third w-3 h-3 mx-0 pb-[0.4rem] flex justify-center items-center md:w-5 md:h-5' onClick={incrementeCart}>+</button>
         </div>
       }
 
       {store &&
-        <button className={cn('btn-secondary', !product.visibility && 'hidden')} type="button">
+        <div className={cn('flex gap-x-2', !product.visibility && 'hidden')}>
           <a
             href={gerarLinkWhatsApp(product)}
             target="_blank"
             rel="noopener noreferrer"
-          >Comprar</a>
-        </button>
+          ><CreditCard className='text-primaryForeground' /></a>
+        </div>
       }
 
       {admin &&

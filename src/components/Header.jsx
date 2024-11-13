@@ -1,6 +1,6 @@
 'use client'
 
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ShoppingCart } from 'lucide-react';
 
 import {
   Popover,
@@ -11,6 +11,7 @@ import {
 // import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 import { useState } from 'react'
+import { useCart } from '../context/CartContext';
 
 const menu = [
   {
@@ -38,6 +39,7 @@ const trimmedMenu = menu.map(product => ({
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cart } = useCart()
 
   return (
     <header className="w-full dm:pt-1 px-2 z-20 bg-secondaryBackground fixed flex md:items-center justify-between md:px-4">
@@ -77,6 +79,7 @@ export default function Header() {
           ))}
         </div>
       </nav>
+      <button><ShoppingCart /><span>{cart}</span></button>
     </header>
   )
 }

@@ -33,7 +33,7 @@ export function ProductProvider({ children }) {
     }
   }, [])
 
-  const valeu = {
+  const value = {
     plants,
     vases,
     other,
@@ -43,7 +43,7 @@ export function ProductProvider({ children }) {
   }
 
   return (
-    <ProductContext.Provider value={valeu}>
+    <ProductContext.Provider value={value}>
       {children}
     </ProductContext.Provider>
   )
