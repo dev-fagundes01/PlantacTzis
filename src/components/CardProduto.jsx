@@ -3,14 +3,14 @@ import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage
 import { FilePenLine, Trash2, CreditCard, ShoppingCart } from 'lucide-react'
 import { useState } from 'react'
 import { db, storage } from "../../config/firebaseConfig";
-import { useCart } from '../context/CartContext';
 import cn from '../lib/utils'
+import { useCart } from '../context/CartContext';
 
 export default function Card({ product, admin, store }) {
   const [divUpdate, setDivUpdate] = useState(false)
   const [productData, setProductData] = useState({})
   const [amount, setAmount] = useState(1)
-  const { cart, setCart } = useCart()
+  const { setCart, setQuantityInCart } = useCart()
   const numeroLoja = "5581991943001"
 
   const decrementeCart = () => {
@@ -19,6 +19,12 @@ export default function Card({ product, admin, store }) {
 
   const incrementeCart = () => {
     setAmount(prev => prev + 1)
+  }
+
+  function addToCart(product) {
+    console.log(product);
+    setCart(prevCart => [...prevCart, product])
+    setQuantityInCart(prev => prev + 1)
   }
 
   const gerarLinkWhatsApp = (product) => {
@@ -107,6 +113,7 @@ export default function Card({ product, admin, store }) {
             target="_blank"
             rel="noopener noreferrer"
           ><CreditCard className='text-primaryForeground' /></a>
+          <button onClick={() => addToCart(product)}><ShoppingCart className='text-primaryForeground' /></button>
         </div>
       }
 

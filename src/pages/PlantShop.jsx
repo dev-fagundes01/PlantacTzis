@@ -6,9 +6,11 @@ import DfMobileBanner from '../assets/banner-df-mobile.png'
 import DfBanner from '../assets/banner-df.png'
 import Header from '../components/Header';
 import { useProduct } from '../context/ProductContext';
+import { useCart } from '../context/CartContext';
 
 export default function PlantShop() {
   const { plants, vases, other } = useProduct()
+  const { cart, divVisibility } = useCart()
 
   return (
     <div className="min-h-screen bg-primaryBackground overflow-hidden">
@@ -23,6 +25,25 @@ export default function PlantShop() {
         <Slider title={'Nossas Plantas'} info={plants} />
         <Slider title={'Nossos Vasos'} info={vases} className='dm:mr-[-5rem]' />
         <Slider title={'Outros Produtos'} info={other} className='dm:mr-[-5rem]' />
+
+        {divVisibility &&
+          <div className='h-screen py-[2.7rem] z-30 fixed top-0 right-0'>
+            <div className='bg-primaryBackground'>
+              <h3 className='h3-c py-2 px-[4.5rem] bg-secondaryBackground text-secondaryForeground'>Carrinho de Compras</h3>
+              {Array.isArray(cart) && cart.map(product => (
+                <div className='grid grid-template' key={product.id}>
+                  <img className='h-16 product-image' src={product.image} alt={product.name} />
+                  <p className='h3-c product-name'>{product.name}</p>
+                  <p className='p-c product-price'><b>R$ {product.price},00</b></p>
+                  <p className='text-2xl x relative flex items-center'>
+                    <div className='p-3 absolute right-[0.85rem] bottom-[1rem] rounded-full border border-solid border-black'></div>
+                    x
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        }
 
         <section className='h-auto mx-auto mt-4 flex flex-wrap justify-center gap-2 md:gap-8 md:w-max md:mt-8'>
           <div>

@@ -138,4 +138,24 @@
   .flex-utilities {
     @apply flex items-center justify-center
   }
+
+  .grid-template {
+    grid-template:
+    "productimage productname x" 2rem
+    "productimage productprice x" 2rem
+    / 5rem 1fr 2rem;
+  }
+
+  .product-image {
+    grid-area: productimage;
+  }  
+  .product-name {
+    grid-area: productname;
+  }
+  .product-price {
+    grid-area: productprice;
+  }
+  .x {
+    grid-area: x;
+  }
 }
