@@ -6,12 +6,40 @@ import { db, storage } from "../../config/firebaseConfig";
 import cn from '../lib/utils'
 import { useCart } from '../context/CartContext';
 
-export default function Card({ product, admin, store }) {
+export function gerarLinkWhatsApp(products, amount) {
+  try {
+    const numeroLoja = "5581991943001"
+
+    if (!Array.isArray(products)) {
+      const mensagem = `Olá, gostaria de comprar o produto: ${products?.name}, preço: ${products?.price},00, quantidade: ${amount}`
+      const url = `https://wa.me/${numeroLoja}?text=${encodeURIComponent(mensagem)}`
+      return url
+    }
+
+    if (products.length === 0) return ""
+
+    const mensagem = products.map(item => {
+      console.log("Item no map:", item);
+      return `Produto: ${item.product.name}, preço: ${item.product.price},00, quantidade: ${item.amount}`
+    })
+
+    const mensagemFinal = `Olá, gostaria de comprar os seguintes produtos: ${mensagem.join("\n")}`
+
+    const url = `https://wa.me/${numeroLoja}?text=${encodeURIComponent(mensagemFinal)}`
+    console.log("Mensagem Final:", mensagemFinal);
+    console.log("URL:", url);
+    return url
+  } catch (error) {
+    console.error("Error generating WhatsApp link:", error);
+    return "";
+  }
+}
+
+export function Card({ product, admin, store }) {
   const [divUpdate, setDivUpdate] = useState(false)
   const [productData, setProductData] = useState({})
   const [amount, setAmount] = useState(1)
-  const { setCart, setQuantityInCart } = useCart()
-  const numeroLoja = "5581991943001"
+  const { addToCart } = useCart()
 
   const decrementeCart = () => {
     setAmount(prev => (prev > 1 ? prev - 1 : 1))
@@ -21,19 +49,16 @@ export default function Card({ product, admin, store }) {
     setAmount(prev => prev + 1)
   }
 
-  function addToCart(product) {
-    console.log(product);
-    setCart(prevCart => [...prevCart, product])
-    setQuantityInCart(prev => prev + 1)
+  const addProductQuantity = (product, amount) => {
+    const productWithQuantity = {
+      product,
+      amount
+    }
+
+    addToCart(productWithQuantity)
   }
 
-  const gerarLinkWhatsApp = (product) => {
-    const mensagem = `Olá, gostaria de comprar o produto: ${product?.name}, preço: ${product?.price},00, quantidade: ${amount}`
-    const url = `https://wa.me/${numeroLoja}?text=${encodeURIComponent(mensagem)}`
-    return url
-  }
-
-  function confirmUpdate(product) {
+  const confirmUpdate = (product) => {
     setProductData(product)
     setDivUpdate(true)
   }
@@ -109,11 +134,11 @@ export default function Card({ product, admin, store }) {
       {store &&
         <div className={cn('flex gap-x-2', !product.visibility && 'hidden')}>
           <a
-            href={gerarLinkWhatsApp(product)}
+            href={gerarLinkWhatsApp(product, amount)}
             target="_blank"
             rel="noopener noreferrer"
           ><CreditCard className='text-primaryForeground' /></a>
-          <button onClick={() => addToCart(product)}><ShoppingCart className='text-primaryForeground' /></button>
+          <button onClick={() => addProductQuantity(product, amount)}><ShoppingCart className='text-primaryForeground' /></button>
         </div>
       }
 

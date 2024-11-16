@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
-import Card from './CardProduto';
+import { Card } from './CardProduto';
 import { twMerge } from 'tailwind-merge';
 
 export default function Slider({ title, info, className }) {

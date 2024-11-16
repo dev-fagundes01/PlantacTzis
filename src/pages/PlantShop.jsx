@@ -7,11 +7,13 @@ import DfBanner from '../assets/banner-df.png'
 import Header from '../components/Header';
 import { useProduct } from '../context/ProductContext';
 import { useCart } from '../context/CartContext';
+import { gerarLinkWhatsApp } from '../components/CardProduto';
 
 export default function PlantShop() {
   const { plants, vases, other } = useProduct()
-  const { cart, divVisibility } = useCart()
+  const { cart, divVisibility, setDivVisibility, addToCart, removeFromCart, decrementeCart } = useCart()
 
+  console.log(cart)
   return (
     <div className="min-h-screen bg-primaryBackground overflow-hidden">
       <Header />
@@ -26,24 +28,40 @@ export default function PlantShop() {
         <Slider title={'Nossos Vasos'} info={vases} className='dm:mr-[-5rem]' />
         <Slider title={'Outros Produtos'} info={other} className='dm:mr-[-5rem]' />
 
-        {divVisibility &&
-          <div className='h-screen py-[2.7rem] z-30 fixed top-0 right-0'>
-            <div className='bg-primaryBackground'>
-              <h3 className='h3-c py-2 px-[4.5rem] bg-secondaryBackground text-secondaryForeground'>Carrinho de Compras</h3>
-              {Array.isArray(cart) && cart.map(product => (
-                <div className='grid grid-template' key={product.id}>
-                  <img className='h-16 product-image' src={product.image} alt={product.name} />
-                  <p className='h3-c product-name'>{product.name}</p>
-                  <p className='p-c product-price'><b>R$ {product.price},00</b></p>
-                  <p className='text-2xl x relative flex items-center'>
-                    <div className='p-3 absolute right-[0.85rem] bottom-[1rem] rounded-full border border-solid border-black'></div>
-                    x
-                  </p>
-                </div>
-              ))}
+        <div>
+          <div className={`w-full opacity-50 z-10 fixed top-0 left-0 bg-disabled ${divVisibility ? 'h-full' : 'h-0'}`} onClick={() => setDivVisibility(false)} />
+          <aside className={`h-screen z-10 fixed top-[2.6rem] right-0 transition-all duration-1000 transform bg-primaryBackground ${divVisibility ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}>
+            <h3 className='h3-c py-2 px-[4.5rem] bg-secondaryBackground text-secondaryForeground'>Carrinho de Compras</h3>
+            <div className='h-5/6 flex flex-col justify-between'>
+              <div>
+                {Array.isArray(cart) && cart.map((item, index) => (
+                  <div className='relative grid grid-template' key={item.product.id && item.product.name ? item.product.id + item.product.name : index}>
+                    <div className='product-image flex gap-x-1 items-center'>
+                      <button className='btn-third w-4 h-4 mx-0 text-base flex justify-center items-center' onClick={() => decrementeCart(item)}>-</button>
+                      <img className='h-12' src={item.product.image} alt={item.product.name} />
+                      <button className='btn-third w-4 h-4 mx-0 z-20 text-base flex justify-center items-center' onClick={() => addToCart(item)}>+</button>
+                    </div>
+                    <p className='w-5 h-5 p-c rounded-full absolute left-14 bg-secondaryBackground text-secondaryForeground flex justify-center items-center'>{item.amount}</p>
+                    <h3 className='h3-c product-name'>{item.product.name}</h3>
+                    <p className='p-c product-price'><b>R$ {item.product.price},00</b></p>
+                    <div className='text-2xl x relative flex items-center cursor-pointer' onClick={() => removeFromCart(item)}>
+                      <div className='p-3 absolute right-[0.85rem] bottom-[1rem] rounded-full border border-solid border-black' />
+                      x
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <footer className='text-center'>
+                <p className='p-c'><b>Total: R$ {Array.isArray(cart) && cart.length > 0 ?
+                  cart.reduce((acc, item) => acc + Number(item.product.price * item.amount), 0).toFixed(2) : "0,00"},00</b></p>
+                <button className='btn-secondary w-72' onClick={() => {
+                  const url = gerarLinkWhatsApp(cart)
+                  if (url) window.open(url, "_blank")
+                }}>Comprar</button>
+              </footer>
             </div>
-          </div>
-        }
+          </aside>
+        </div>
 
         <section className='h-auto mx-auto mt-4 flex flex-wrap justify-center gap-2 md:gap-8 md:w-max md:mt-8'>
           <div>
