@@ -30,12 +30,12 @@ export default function PlantShop() {
 
         <div>
           <div className={`w-full opacity-50 z-10 fixed top-0 left-0 bg-disabled ${divVisibility ? 'h-full' : 'h-0'}`} onClick={() => setDivVisibility(false)} />
-          <aside className={`h-screen z-10 fixed top-[2.6rem] right-0 transition-all duration-1000 transform bg-primaryBackground ${divVisibility ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}>
-            <h3 className='h3-c py-2 px-[4.5rem] bg-secondaryBackground text-secondaryForeground'>Carrinho de Compras</h3>
+          <aside className={`h-screen z-10 fixed right-0 transition-all duration-1000 transform bg-primaryBackground top-[2.1rem] dm:w-60 md:top-[2.6rem] ${divVisibility ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}>
+            <h3 className='h3-c py-2 px-[2.5rem] bg-secondaryBackground text-secondaryForeground md:px-[4.5rem]'>Carrinho de Compras</h3>
             <div className='h-5/6 flex flex-col justify-between'>
               <div>
                 {Array.isArray(cart) && cart.map((item, index) => (
-                  <div className='relative grid grid-template' key={item.product.id && item.product.name ? item.product.id + item.product.name : index}>
+                  <div className='relative grid grid-template justify-between' key={item.product.id && item.product.name ? item.product.id + item.product.name : index}>
                     <div className='product-image flex gap-x-1 items-center'>
                       <button className='btn-third w-4 h-4 mx-0 text-base flex justify-center items-center' onClick={() => decrementeCart(item)}>-</button>
                       <img className='h-12' src={item.product.image} alt={item.product.name} />
@@ -54,7 +54,7 @@ export default function PlantShop() {
               <footer className='text-center'>
                 <p className='p-c'><b>Total: R$ {Array.isArray(cart) && cart.length > 0 ?
                   cart.reduce((acc, item) => acc + Number(item.product.price * item.amount), 0).toFixed(2) : "0,00"},00</b></p>
-                <button className='btn-secondary w-72' onClick={() => {
+                <button className='btn-secondary md:w-72' onClick={() => {
                   const url = gerarLinkWhatsApp(cart)
                   if (url) window.open(url, "_blank")
                 }}>Comprar</button>

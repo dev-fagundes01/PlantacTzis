@@ -82,9 +82,9 @@ export default function Header() {
           </div>
         </nav>
 
-        <button className='p-5 rounded-full bg-primaryBackground text-primaryForeground relative' onClick={() => setDivVisibility(!divVisibility)}>
-          <span className='absolute bottom-[17px] left-[17px]'>{quantityInCart}</span>
-          <ShoppingCart className='absolute bottom-[2px] right-[9px]' />
+        <button className='dm:w-6 dm:h-6 rounded-full bg-primaryBackground text-primaryForeground relative md:p-5' onClick={() => setDivVisibility(!divVisibility)}>
+          <span className='text-xs absolute bottom-2 right-2 md:bottom-[17px] md:left-[17px]'>{quantityInCart}</span>
+          <ShoppingCart className='dm:w-3 dm:h-3 absolute right-[0.45rem] bottom-[0.05rem] md:bottom-[2px] md:right-[9px]' />
         </button>
       </div>
     </header>
