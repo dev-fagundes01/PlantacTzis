@@ -23,7 +23,9 @@ export function gerarLinkWhatsApp(products, amount) {
       return `Produto: ${item.product.name}, preço: ${item.product.price},00, quantidade: ${item.amount}`
     })
 
-    const mensagemFinal = `Olá, gostaria de comprar os seguintes produtos: ${mensagem.join("\n")}`
+    const mensagemFinal = `Olá, gostaria de comprar os seguintes produtos:
+     ${mensagem.join("\n")}
+     `
 
     const url = `https://wa.me/${numeroLoja}?text=${encodeURIComponent(mensagemFinal)}`
     console.log("Mensagem Final:", mensagemFinal);
