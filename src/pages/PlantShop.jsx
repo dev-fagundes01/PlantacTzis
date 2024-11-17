@@ -36,10 +36,10 @@ export default function PlantShop() {
               <div>
                 {Array.isArray(cart) && cart.map((item, index) => (
                   <div className='relative grid grid-template justify-between' key={item.product.id && item.product.name ? item.product.id + item.product.name : index}>
-                    <div className='product-image flex gap-x-1 items-center'>
-                      <button className='btn-third w-4 h-4 mx-0 text-base flex justify-center items-center' onClick={() => decrementeCart(item)}>-</button>
-                      <img className='h-12' src={item.product.image} alt={item.product.name} />
-                      <button className='btn-third w-4 h-4 mx-0 z-20 text-base flex justify-center items-center' onClick={() => addToCart(item)}>+</button>
+                    <div className='product-image relative flex gap-x-1 items-center'>
+                      <button className='btn-third w-4 h-4 mx-0 text-base absolute left-1 flex justify-center items-center' onClick={() => decrementeCart(item)}>-</button>
+                      <img className='w-12 h-12 mx-5' src={item.product.image} alt={item.product.name} />
+                      <button className='btn-third w-4 h-4 mx-0 text-base absolute right-[-0.25rem] flex justify-center items-center' onClick={() => addToCart(item)}>+</button>
                     </div>
                     <p className='w-5 h-5 p-c rounded-full absolute left-14 bg-secondaryBackground text-secondaryForeground flex justify-center items-center'>{item.amount}</p>
                     <h3 className='h3-c product-name'>{item.product.name}</h3>

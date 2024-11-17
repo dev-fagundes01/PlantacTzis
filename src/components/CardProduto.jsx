@@ -123,7 +123,7 @@ export function Card({ product, admin, store }) {
       <p className='p-c text-center'>Preço: R$ {product?.price},00</p>
       <p className={cn('w-28 text-xs text-disabledForeground z-10 text-center hidden md:mx-auto md:text-[0.96rem]', !product.visibility && 'block', store && 'md:mb-2')}>Indisponível no momento</p>
 
-      {product.visibility &&
+      {product.visibility && store &&
         <div className='flex gap-x-1 items-center md:gap-x-2'>
           <button className='btn-third w-3 h-3 mx-0 pb-[0.4rem] flex justify-center items-center md:w-5 md:h-5' onClick={decrementeCart}>-</button>
           <p className='p-c'>{amount}</p>
