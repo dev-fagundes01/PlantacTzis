@@ -19,17 +19,14 @@ export function gerarLinkWhatsApp(products, amount) {
     if (products.length === 0) return ""
 
     const mensagem = products.map(item => {
-      console.log("Item no map:", item);
       return `Produto: ${item.product.name}, preço: ${item.product.price},00, quantidade: ${item.amount}`
     })
 
     const mensagemFinal = `Olá, gostaria de comprar os seguintes produtos:
-     ${mensagem.join("\n")}
+${mensagem.join("\n")}
      `
 
     const url = `https://wa.me/${numeroLoja}?text=${encodeURIComponent(mensagemFinal)}`
-    console.log("Mensagem Final:", mensagemFinal);
-    console.log("URL:", url);
     return url
   } catch (error) {
     console.error("Error generating WhatsApp link:", error);
@@ -43,11 +40,11 @@ export function Card({ product, admin, store }) {
   const [amount, setAmount] = useState(1)
   const { addToCart } = useCart()
 
-  const decrementeCart = () => {
+  const decrementeAmount = () => {
     setAmount(prev => (prev > 1 ? prev - 1 : 1))
   }
 
-  const incrementeCart = () => {
+  const incrementeAmount = () => {
     setAmount(prev => prev + 1)
   }
 
@@ -127,9 +124,9 @@ export function Card({ product, admin, store }) {
 
       {product.visibility && store &&
         <div className='flex gap-x-1 items-center md:gap-x-2'>
-          <button className='btn-third w-3 h-3 mx-0 pb-[0.4rem] flex justify-center items-center md:w-5 md:h-5' onClick={decrementeCart}>-</button>
+          <button className='btn-third w-[1.05rem] h-[1.05rem] mx-0 pb-[0.4rem] flex justify-center items-center md:w-5 md:h-5' onClick={decrementeAmount}>-</button>
           <p className='p-c'>{amount}</p>
-          <button className='btn-third w-3 h-3 mx-0 pb-[0.4rem] flex justify-center items-center md:w-5 md:h-5' onClick={incrementeCart}>+</button>
+          <button className='btn-third w-[1.05rem] h-[1.05rem] mx-0 pb-[0.4rem] flex justify-center items-center md:w-5 md:h-5' onClick={incrementeAmount}>+</button>
         </div>
       }
 
