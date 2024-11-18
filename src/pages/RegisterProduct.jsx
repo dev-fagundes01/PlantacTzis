@@ -1,11 +1,11 @@
 import { addDoc, collection, doc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import { db, storage } from '../../config/firebaseConfig'
 import Loading from '../assets/loading.gif'
 import Background from "../components/Background";
 import Title from "../components/Title";
+import NavigationButtons from '../components/NavigationButtons';
 
 function RegisterProduct() {
   const [name, setName] = useState('')
@@ -18,8 +18,6 @@ function RegisterProduct() {
   const [confirmationData, setConfirmationData] = useState({})
   const [registeredProduct, setRegisteredProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-
-  const navigate = useNavigate()
 
   const confirmProducts = (event) => {
     event.preventDefault()
@@ -172,10 +170,7 @@ function RegisterProduct() {
         </div>
       )}
 
-      <div className='flex flex-col gap-2 md:flex-row'>
-        <button className='btn-third md:mx-0' type="button" onClick={() => navigate("/loja")}>Ir para a loja</button>
-        <button className='btn-third md:mx-0' type="button" onClick={() => navigate("/gerenciar-produtos")}>Ir para produtos</button>
-      </div>
+      <NavigationButtons register={true} />
     </div>
   );
 }
