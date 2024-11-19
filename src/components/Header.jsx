@@ -43,7 +43,7 @@ export default function Header() {
 
   return (
     <header className="w-full dm:pt-1 px-2 z-20 bg-secondaryBackground fixed flex justify-between md:px-4 md:items-center">
-      <h1 className="text-white text-base font-bold md:text-2xl">DF-Plantas</h1>
+      <h1 className="text-white text-base font-bold md:text-2xl">PlantacTzis</h1>
 
       <div className='flex gap-2 md:items-center'>
         <nav aria-label="Global" className="text-end">
