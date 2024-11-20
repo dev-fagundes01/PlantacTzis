@@ -6,9 +6,9 @@ export default function NavigationButtons({ className, register, manage }) {
 
   return (
     <div className={cn('flex flex-col gap-2 md:flex-row', className)}>
-      <button className={cn('btn-third md:mx-0', manage && 'text-base border-0 text-white')} type="button" onClick={() => navigate("/")}>Ir para login</button>
+      <button className={cn('btn-third md:mx-0', manage && 'text-base border-0 text-white')} type="button" onClick={() => navigate("/loja")}>Ir para a loja</button>
       {!register &&
-        <button className={cn('btn-third md:mx-0', manage && 'text-base border-0 text-white')} type="button" onClick={() => navigate("/loja")}>Ir para a loja</button>
+        <button className={cn('btn-third md:mx-0', manage && 'text-base border-0 text-white')} type="button" onClick={() => navigate("/")}>Ir para login</button>
       }
       {!register &&
         <button className={cn('btn-third md:mx-0', manage && 'text-base border-0 text-white')} type="button" onClick={() => navigate("/cadastrar-produtos")}>Ir para cadastro</button>

@@ -34,9 +34,7 @@ export default function ProtectedRoute({ children }) {
 
   if (authState.isLoading) return <div className='h-screen flex items-center justify-center'><img className='h-40' src={Loading} alt="Imagem de carregamento" /></div>
 
-  if (!authState.isAuthenticated) return <Navigate to="/" replace={true} />;
-
-  if (!authState.isAdmin) return <Navigate to="/" replace={true} />;
+  if (!authState.isAuthenticated || !authState.isAdmin) return <Navigate to="/" replace={true} />;
 
   return children
 }
