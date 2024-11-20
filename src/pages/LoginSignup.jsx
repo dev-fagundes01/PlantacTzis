@@ -41,7 +41,6 @@ export default function LoginSignup() {
     }
   }, [authState]);
 
-
   const handleChange = (e) => {
     const { name, value } = e.target
     setAccountDetails(prev => ({ ...prev, [name]: value }))
@@ -100,12 +99,12 @@ export default function LoginSignup() {
         confirmPassword: "",
       });
     } catch (error) {
-      setError(error.message);
+      console.log(error.message);
+      setError("Erro: e-mail de autenticação já em uso");
     } finally {
       setLoading(false);
     }
   };
-
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -138,25 +137,31 @@ export default function LoginSignup() {
       const user = result.user;
 
       const methods = await fetchSignInMethodsForEmail(auth, user.email);
+      console.log(methods);
 
       if (methods.length > 0 && !methods.includes("google.com")) {
-        console.error("Conta já vinculada a outro provedor");
+        console.error("Account already linked to another provider");
 
         const email = user.email;
         const pendingCredential = GoogleAuthProvider.credentialFromResult(result);
 
         try {
-          const password = prompt(
-            "Sua conta já está associada a uma senha. Digite sua senha para vincular a conta:"
-          );
+          if (methods.includes("password")) {
+            const password = prompt(
+              "Sua conta já está associada a uma senha. Digite sua senha para vincular a conta:"
+            );
 
-          const credential = EmailAuthProvider.credential(email, password);
-          const userCredential = await signInWithCredential(auth, credential);
+            const credential = EmailAuthProvider.credential(email, password);
+            const userCredential = await signInWithCredential(auth, credential);
 
-          await linkWithCredential(userCredential.user, pendingCredential);
-          console.log("Conta vinculada com sucesso!");
+            await linkWithCredential(userCredential.user, pendingCredential);
+            console.log("Account linked successfully!");
+          } else {
+            alert('Outro método de autenticação detectado, mas não suportado.');
+            return
+          }
         } catch (linkError) {
-          console.error("Erro ao vincular conta:", linkError);
+          console.error("Error linking account:", linkError);
           return;
         }
       }
@@ -168,7 +173,7 @@ export default function LoginSignup() {
         await setDoc(userDocRef, {
           name: user.displayName,
           email: user.email,
-          isAdmin: false,
+          isAdmin: true,
           createAt: new Date(),
         });
       }
@@ -183,10 +188,12 @@ export default function LoginSignup() {
         navigate("/cadastrar-produtos");
       }
     } catch (error) {
-      console.error("Erro ao fazer login com Google:", error);
+      if (error.code === "auth/account-exists-with-different-credential") {
+        console.error("Linked account error detected:", error);
+      }
+      console.error("Error logging in with Google:", error);
     }
   };
-
 
   return (
     <div className="h-screen flex-utilities">
@@ -275,7 +282,7 @@ export default function LoginSignup() {
           {/* <p className="p-c my-4 text-secondaryForeground">Ou entre com</p> */}
           {/* <img className='rounded-full' src={Google} alt="Autenticação pelo Google" /> */}
           {error && <p className='p-c my-4 text-destructiveForeground text-center'>{error}</p>}
-          {success && <p className='p-c my-4 text-destructiveForeground text-center'>{success}</p>}
+          {success && <p className='p-c my-4 text-secondaryForeground text-center'>{success}</p>}
         </div>
       }
     </div>
