@@ -17,9 +17,9 @@ export default function ManageProducts() {
 
   return (
     <div className='h-screen p-2 bg-secondaryBackground flex flex-col items-center overflow-y-auto relative'>
-      <NavigationButtons className='absolute right-4' manage={true} />
-      <Background />
-      <Title>Seus Produtos</Title>
+      <Background className='w-60' />
+      <NavigationButtons manage={true} />
+      <Title className='md:my-2'>Seus Produtos</Title>
 
       <div className="flex gap-3">
         <button className="px-2 rounded-sm bg-primaryBackground hover:opacity-80 active:opacity-50" type="button" onClick={() => setProducts(plants)}>Plantas</button>

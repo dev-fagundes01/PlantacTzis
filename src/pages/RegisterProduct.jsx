@@ -114,7 +114,7 @@ function RegisterProduct() {
   return (
     <div className='h-screen p-4 bg-secondaryBackground flex flex-col overflow-y-auto md:items-center'>
       <Background />
-      <Title>Cadastre suas Plantas</Title>
+      <Title className='text-xl'>Cadastre suas Plantas</Title>
       <form className='w-fit mx-auto pb-2 flex flex-col relative' onSubmit={(e) => confirmProducts(e)}>
         <label className='label-c' htmlFor="name">Nome:</label>
         <input className='input-c' placeholder="Tulipas" type="text" name="name" required value={name} onChange={(e) => setName(e.target.value)} />

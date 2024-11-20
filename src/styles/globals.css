@@ -81,7 +81,7 @@
   }
   
   .btn-primary {
-    @apply w-max mx-16 mt-2 p-1 text-sm rounded-lg bg-primaryBackground md:text-2xl md:w-48 md:mx-24
+    @apply w-max mx-16 mt-2 p-1 text-sm rounded-lg bg-primaryBackground text-thirdForeground md:text-2xl md:w-48 md:mx-24
   }
   
   .btn-secondary {
