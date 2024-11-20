@@ -1,13 +1,15 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, GoogleAuthProvider, linkWithCredential, signInWithCredential, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { auth, db } from '../../config/firebaseConfig'
 import OpenEye from '../assets/eye.png'
 import CloseEye from '../assets/eye_121.png'
-// import Google from '../assets/google-icon.png'
+import Google from '../assets/google-icon.png'
 import Loading from '../assets/loading.gif'
 import Title from '../components/Title'
+
+const provider = new GoogleAuthProvider();
 
 export default function LoginSignup() {
   const [email, setEmail] = useState('')
@@ -27,6 +29,19 @@ export default function LoginSignup() {
     confirmPassword: ''
   })
 
+  const [authState, setAuthState] = useState({
+    isLoading: true,
+    isAdmin: false,
+    isAuthenticated: false
+  })
+
+  useEffect(() => {
+    if (authState.isAuthenticated && authState.isAdmin) {
+      navigate("/cadastrar-produtos");
+    }
+  }, [authState]);
+
+
   const handleChange = (e) => {
     const { name, value } = e.target
     setAccountDetails(prev => ({ ...prev, [name]: value }))
@@ -41,41 +56,56 @@ export default function LoginSignup() {
   }
 
   const addAccount = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
-    setSuccess('')
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccess("");
 
     if (accountDetails.password !== accountDetails.confirmPassword) {
-      setError('As senhas não conferem')
-      setLoading(false)
-      return
+      setError("As senhas não conferem");
+      setLoading(false);
+      return;
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, accountDetails.email, accountDetails.password)
+      const methods = await fetchSignInMethodsForEmail(auth, accountDetails.email);
+
+      if (methods.length > 0) {
+        setError(
+          "Este e-mail já está associado a outro provedor. Use outra forma de login."
+        );
+        setLoading(false);
+        return;
+      }
+
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        accountDetails.email,
+        accountDetails.password
+      );
 
       await setDoc(doc(db, "users", userCredential.user.uid), {
         name: accountDetails.name,
         email: accountDetails.email,
         isAdmin: true,
-        createAt: new Date()
-      })
+        createAt: new Date(),
+      });
 
-      setSuccess("Cadastrado com sucesso")
+      setSuccess("Cadastrado com sucesso");
 
       setAccountDetails({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-      })
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
     } catch (error) {
-      setError(error.message)
+      setError(error.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
+
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -101,6 +131,62 @@ export default function LoginSignup() {
       console.log("Erro no login", error);
     }
   }
+
+  const signInGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      const methods = await fetchSignInMethodsForEmail(auth, user.email);
+
+      if (methods.length > 0 && !methods.includes("google.com")) {
+        console.error("Conta já vinculada a outro provedor");
+
+        const email = user.email;
+        const pendingCredential = GoogleAuthProvider.credentialFromResult(result);
+
+        try {
+          const password = prompt(
+            "Sua conta já está associada a uma senha. Digite sua senha para vincular a conta:"
+          );
+
+          const credential = EmailAuthProvider.credential(email, password);
+          const userCredential = await signInWithCredential(auth, credential);
+
+          await linkWithCredential(userCredential.user, pendingCredential);
+          console.log("Conta vinculada com sucesso!");
+        } catch (linkError) {
+          console.error("Erro ao vincular conta:", linkError);
+          return;
+        }
+      }
+
+      const userDocRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        await setDoc(userDocRef, {
+          name: user.displayName,
+          email: user.email,
+          isAdmin: false,
+          createAt: new Date(),
+        });
+      }
+
+      setAuthState({
+        isLoading: false,
+        isAdmin: userDoc.exists() && userDoc.data().isAdmin,
+        isAuthenticated: true,
+      });
+
+      if (authState.isAuthenticated && authState.isAdmin) {
+        navigate("/cadastrar-produtos");
+      }
+    } catch (error) {
+      console.error("Erro ao fazer login com Google:", error);
+    }
+  };
+
 
   return (
     <div className="h-screen flex-utilities">
@@ -135,9 +221,11 @@ export default function LoginSignup() {
             <button className="btn-primary mx-0 mt-0 text-xs md:w-40 md:text-lg" onClick={() => setIsLogin(false)}>Adicionar</button>
           </div>
 
-          {/* <p className="p-c my-4 text-secondaryForeground">Ou entre com</p> */}
-          {/* <img className='rounded-full' src={Google} alt="Autenticação pelo Google" /> */}
           {error && <p className='p-c my-4 text-destructiveForeground text-center'>{error}</p>}
+          <div className='flex flex-col items-center'>
+            <p className="p-c my-4 text-secondaryForeground">Ou entre com</p>
+            <img className='rounded-full cursor-pointer' src={Google} alt="Autenticação pelo Google" onClick={signInGoogle} />
+          </div>
         </div>
         :
         <div className='p-6 rounded-lg bg-secondaryBackground'>
