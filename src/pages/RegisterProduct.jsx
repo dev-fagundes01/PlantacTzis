@@ -144,7 +144,7 @@ function RegisterProduct() {
 
         {!uploading ? '' : <progress className='progress-custom w-52 dm:h-2 md:w-96' value={progress} max="100" />}
         {registeredProduct &&
-          <p className='p-c mb-0 text-center'>{registeredProduct.name} registrado com sucesso!</p>
+          <p className='p-c mb-0 text-secondaryForeground text-center'>{registeredProduct.name} registrado com sucesso!</p>
         }
 
         <button className='btn-primary' type="submit">Cadastrar</button>

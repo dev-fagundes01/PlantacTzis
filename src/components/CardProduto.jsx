@@ -113,7 +113,7 @@ export function Card({ product, admin, store }) {
   }
 
   return (
-    <div className={cn('w-max flex flex-col items-center justify-center relative md:mx-2', admin && 'relative', store && 'w-full cursor-grab')}>
+    <div className={cn('w-max p-2 rounded-[0.15rem] transition-color flex flex-col items-center justify-center relative hover:bg-accent md:mx-2', admin && 'relative', store && 'w-full cursor-grab')}>
       {product?.image ? (
         <img className="img-c" src={product.image} alt={product?.name} />) : (<p>Imagem não disponível</p>
       )}

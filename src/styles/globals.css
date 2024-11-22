@@ -12,6 +12,9 @@
     --secondary-foreground: #F2F5F9;
     --third-foreground: #181f36;
 
+    --accent: #abdbe3;
+    --accent-foreground: #1C0B02;
+
     --disabled: #B3B3B3;
     --disabled-foreground: #292727;
 
@@ -153,5 +156,11 @@
       "productimage productprice x" 2rem
         / 4rem 4rem 2rem; /* Coloca tudo em uma única coluna */
     }
+  }
+
+  .transition-color {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 1s;
   }
 }
