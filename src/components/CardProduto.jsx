@@ -137,7 +137,7 @@ export function Card({ product, admin, store }) {
             target="_blank"
             rel="noopener noreferrer"
           ><CreditCard className='text-primaryForeground' /></a>
-          <button onClick={() => addProductQuantity(product, amount)}><ShoppingCart className='text-primaryForeground' /></button>
+          <button onClick={() => addProductQuantity(product, amount)}><ShoppingCart className='rounded-sm text-primaryForeground active:bg-active' /></button>
         </div>
       }
 
