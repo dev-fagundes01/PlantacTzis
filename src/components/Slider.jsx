@@ -2,9 +2,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import { Card } from './CardProduto';
-import { twMerge } from 'tailwind-merge';
+import cn from '../lib/utils';
 
-export default function Slider({ title, info, className }) {
+export default function Slider({ title, info, className, first }) {
   return (
     <>
       {info.length > 0 &&
@@ -12,7 +12,7 @@ export default function Slider({ title, info, className }) {
       }
       <Swiper
         slidesPerView={3}
-        className={twMerge('swiper dm:mr-[-3rem] p-2 md:py-4', className)}
+        className={cn('swiper dm:mr-[-3rem] p-2 md:py-4', className, first && 'dm:m-4')}
         onSlideChange={() => console.log('slide change')}
       >
         {info.map((product) => (
