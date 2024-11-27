@@ -12,6 +12,7 @@ import {
 
 import { useState } from 'react'
 import { useCart } from '../context/CartContext';
+import cn from '../lib/utils';
 
 const menu = [
   {
@@ -20,11 +21,11 @@ const menu = [
   },
   {
     name: 'Produtos',
-    href: '#product'
+    href: '#products'
   },
   {
     name: 'Sobre',
-    href: '#about'
+    href: '#about-us'
   },
   {
     name: 'Contato',
@@ -37,12 +38,12 @@ const trimmedMenu = menu.map(product => ({
   name: product.name.trim(),
 }))
 
-export default function Header() {
+export default function Header({ className }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { quantityInCart, divVisibility, setDivVisibility } = useCart()
 
   return (
-    <header className="w-full dm:pt-1 px-2 z-20 bg-secondaryBackground fixed flex justify-between md:px-4 md:items-center">
+    <header className={cn("w-full dm:pt-1 px-2 z-20 bg-secondaryBackground fixed flex justify-between md:px-4 md:items-center", className)}>
       <h1 className="text-white text-base font-bold md:text-2xl">PlantacTzis</h1>
 
       <div className='flex gap-2 md:items-center'>

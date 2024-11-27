@@ -60,5 +60,7 @@ export default {
 			dm: { max: "768px" },
 		},
 	},
-	plugins: [import("tailwindcss-animate")],
+	plugins: [
+		require('tailwindcss-animated')
+	],
 };
