@@ -12,7 +12,7 @@ export default function Slider({ title, info, className, first }) {
       }
       <Swiper
         slidesPerView={3}
-        className={cn('swiper dm:mr-[-3rem] p-2 md:py-4', className, first && 'dm:m-4')}
+        className={cn('swiper dm:mr-[-3rem] p-2 md:py-4', className, first && 'dm:mt-4')}
         onSlideChange={() => console.log('slide change')}
       >
         {info.map((product) => (
