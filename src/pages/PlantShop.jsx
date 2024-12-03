@@ -118,7 +118,7 @@ export default function PlantShop() {
         <Cart />
       </main>
 
-      <section className='h-[20rem] mx-auto mt-4 flex flex-wrap justify-center items-center gap-2 md:gap-8 md:w-max md:mt-8' ref={benefitsRef}>
+      <section className='h-[20rem] mx-auto mt-4 flex flex-wrap justify-center items-center gap-x-2 dm:w-80 md:gap-8 md:w-max md:mt-8' ref={benefitsRef}>
         <div className='benefits'>
           <h3 className='h3-c flex-col md:text-lg'>
             <Flower className='icon' />
